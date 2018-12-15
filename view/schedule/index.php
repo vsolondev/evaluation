@@ -2,9 +2,15 @@
 
 <form id="form-schedule">
     <input type="text" id="scheduleid" name="scheduleid" placeholder="scheduleid">
-    <input type="date" id="scheduledatefrom" name="scheduledatefrom" placeholder="scheduledatefrom">
+    <select id="scheduleday" name="scheduleday">
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+    </select>
     <input type="time" id="scheduletimefrom" name="scheduletimefrom" placeholder="scheduletimefrom">
-    <input type="date" id="scheduledateto" name="scheduledateto" placeholder="scheduledateto">
     <input type="time" id="scheduletimeto" name="scheduletimeto" placeholder="scheduletimeto">
 </form>
 
@@ -12,9 +18,8 @@
     <thead>
         <tr>
             <th>ScheduleId</th>
-            <th>ScheduleDateFrom</th>
+            <th>ScheduleDay</th>
             <th>ScheduleTimeFrom</th>
-            <th>ScheduleDateTo</th>
             <th>ScheduleTimeTo</th>
             <th>Action</th>
         </tr>
@@ -46,9 +51,8 @@
 
         $('#table-schedule').on('click', '.btn-edit', function() {
             $('#scheduleid').val($(this).attr('data-scheduleid'));
-            $('#scheduledatefrom').val($(this).attr('data-scheduledatefrom'));
+            $('#scheduleday').val($(this).attr('data-scheduleday'));
             $('#scheduletimefrom').val($(this).attr('data-scheduletimefrom'));
-            $('#scheduledateto').val($(this).attr('data-scheduledateto'));
             $('#scheduletimeto').val($(this).attr('data-scheduletimeto'));
         });
 
@@ -85,17 +89,15 @@
                     scheduleData.forEach(function(row, i) {
                         html += `<tr>
                                     <td>` + row.ScheduleId + `</td>
-                                    <td>` + row.ScheduleDateFrom + `</td>
+                                    <td>` + row.ScheduleDay + `</td>
                                     <td>` + row.ScheduleTimeFrom + `</td>
-                                    <td>` + row.ScheduleDateTo + `</td>
                                     <td>` + row.ScheduleTimeTo + `</td>
                                     <td>
                                         <button 
                                             class="btn-edit"
                                             data-scheduleid="` + row.ScheduleId + `"
-                                            data-scheduledatefrom="` + row.ScheduleDateFrom + `"
+                                            data-scheduleday="` + row.ScheduleDay + `"
                                             data-scheduletimefrom="` + row.ScheduleTimeFrom + `"
-                                            data-scheduledateto="` + row.ScheduleDateTo + `"
                                             data-scheduletimeto="` + row.ScheduleTimeTo + `"
                                         >Edit</button>
                                     </td>
@@ -110,9 +112,8 @@
 
         function clearForm() {
             $('#scheduleid').val('');
-            $('#scheduledatefrom').val('');
+            $('#scheduleday').val('Monday');
             $('#scheduletimefrom').val('');
-            $('#scheduledateto').val('');
             $('#scheduletimeto').val('');
         }
     });
