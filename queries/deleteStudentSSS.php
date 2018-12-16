@@ -1,7 +1,7 @@
 <?php
 require_once '../connection.php';
 
-$student_section_subject = [
+$student_sss = [
     ':StudentSectionSubjectId' => $_POST['studentsectionsubjectid']
 ];
 
@@ -9,9 +9,9 @@ $returnData = [
     'success' => false
 ];
 
-$query = $conn->prepare('DELETE FROM student_section_subject WHERE StudentSectionSubjectId = :StudentSectionSubjectId');
+$query = $conn->prepare('DELETE FROM student_sss WHERE StudentSectionSubjectId = :StudentSectionSubjectId');
 
-if ($query->execute($student_section_subject)) {
+if ($query->execute($student_sss)) {
     $returnData['success'] = true;
 }
 

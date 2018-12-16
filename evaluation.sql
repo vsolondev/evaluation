@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2018 at 11:16 AM
+-- Generation Time: Dec 16, 2018 at 11:51 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -345,14 +345,13 @@ INSERT INTO `student_account` (`StudentAccountId`, `StudentId`, `AccountId`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_section_subject`
+-- Table structure for table `student_sss`
 --
 
-CREATE TABLE `student_section_subject` (
+CREATE TABLE `student_sss` (
   `StudentSectionId` int(11) NOT NULL,
   `StudentId` int(11) NOT NULL,
-  `SectionId` int(11) NOT NULL,
-  `SubjectId` int(11) NOT NULL
+  `SectionSubjectScheduleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -443,14 +442,13 @@ INSERT INTO `teacher_account` (`TeacherAccountId`, `TeacherId`, `AccountId`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teacher_section_subject`
+-- Table structure for table `teacher_sss`
 --
 
-CREATE TABLE `teacher_section_subject` (
+CREATE TABLE `teacher_sss` (
   `TeacherSectionId` int(11) NOT NULL,
   `TeacherId` int(11) NOT NULL,
-  `SectionId` int(11) NOT NULL,
-  `SubjectId` int(11) NOT NULL
+  `SectionSubjectScheduleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -569,9 +567,9 @@ ALTER TABLE `student_account`
   ADD PRIMARY KEY (`StudentAccountId`);
 
 --
--- Indexes for table `student_section_subject`
+-- Indexes for table `student_sss`
 --
-ALTER TABLE `student_section_subject`
+ALTER TABLE `student_sss`
   ADD PRIMARY KEY (`StudentSectionId`);
 
 --
@@ -599,9 +597,9 @@ ALTER TABLE `teacher_account`
   ADD PRIMARY KEY (`TeacherAccountId`);
 
 --
--- Indexes for table `teacher_section_subject`
+-- Indexes for table `teacher_sss`
 --
-ALTER TABLE `teacher_section_subject`
+ALTER TABLE `teacher_sss`
   ADD PRIMARY KEY (`TeacherSectionId`);
 
 --
@@ -705,9 +703,9 @@ ALTER TABLE `student_account`
   MODIFY `StudentAccountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `student_section_subject`
+-- AUTO_INCREMENT for table `student_sss`
 --
-ALTER TABLE `student_section_subject`
+ALTER TABLE `student_sss`
   MODIFY `StudentSectionId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -735,9 +733,9 @@ ALTER TABLE `teacher_account`
   MODIFY `TeacherAccountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `teacher_section_subject`
+-- AUTO_INCREMENT for table `teacher_sss`
 --
-ALTER TABLE `teacher_section_subject`
+ALTER TABLE `teacher_sss`
   MODIFY `TeacherSectionId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
