@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2018 at 07:58 AM
+-- Generation Time: Dec 16, 2018 at 11:16 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -239,11 +239,11 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`ScheduleId`, `ScheduleDay`, `ScheduleTimeFrom`, `ScheduleTimeTo`) VALUES
-(1, 'Monday', '08:00:00', '09:00:00'),
-(2, 'Monday', '09:00:00', '10:00:00'),
-(3, 'Monday', '10:00:00', '11:00:00'),
-(4, 'Monday', '11:00:00', '12:00:00'),
-(5, 'Monday', '12:00:00', '13:00:00');
+(1, 'Monday To Friday', '08:00:00', '09:00:00'),
+(2, 'Monday To Friday', '09:00:00', '10:00:00'),
+(3, 'Monday To Friday', '10:00:00', '11:00:00'),
+(4, 'Monday To Friday', '11:00:00', '12:00:00'),
+(5, 'Monday To Friday', '12:00:00', '13:00:00');
 
 -- --------------------------------------------------------
 
@@ -270,14 +270,26 @@ INSERT INTO `section` (`SectionId`, `SectionName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `section_subject`
+-- Table structure for table `section_subject_schedule`
 --
 
-CREATE TABLE `section_subject` (
-  `SectionSubjectId` int(11) NOT NULL,
+CREATE TABLE `section_subject_schedule` (
+  `SectionSubjectScheduleId` int(11) NOT NULL,
   `SectionId` int(11) NOT NULL,
-  `SubjectId` int(11) NOT NULL
+  `SubjectId` int(11) NOT NULL,
+  `ScheduleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `section_subject_schedule`
+--
+
+INSERT INTO `section_subject_schedule` (`SectionSubjectScheduleId`, `SectionId`, `SubjectId`, `ScheduleId`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 1, 3, 3),
+(4, 1, 4, 4),
+(5, 1, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -378,18 +390,6 @@ INSERT INTO `subject` (`SubjectId`, `SubjectName`, `SubjectAcronym`) VALUES
 (3, 'Software Engineering', 'SofEng'),
 (4, 'Programming 1', 'Programming1'),
 (5, 'Web Development', 'WebDev');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subject_schedule`
---
-
-CREATE TABLE `subject_schedule` (
-  `SubjectScheduleId` int(11) NOT NULL,
-  `SubjectId` int(11) NOT NULL,
-  `ScheduleId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -551,10 +551,10 @@ ALTER TABLE `section`
   ADD PRIMARY KEY (`SectionId`);
 
 --
--- Indexes for table `section_subject`
+-- Indexes for table `section_subject_schedule`
 --
-ALTER TABLE `section_subject`
-  ADD PRIMARY KEY (`SectionSubjectId`);
+ALTER TABLE `section_subject_schedule`
+  ADD PRIMARY KEY (`SectionSubjectScheduleId`);
 
 --
 -- Indexes for table `student`
@@ -585,12 +585,6 @@ ALTER TABLE `student_teacher_rating`
 --
 ALTER TABLE `subject`
   ADD PRIMARY KEY (`SubjectId`);
-
---
--- Indexes for table `subject_schedule`
---
-ALTER TABLE `subject_schedule`
-  ADD PRIMARY KEY (`SubjectScheduleId`);
 
 --
 -- Indexes for table `teacher`
@@ -693,10 +687,10 @@ ALTER TABLE `section`
   MODIFY `SectionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `section_subject`
+-- AUTO_INCREMENT for table `section_subject_schedule`
 --
-ALTER TABLE `section_subject`
-  MODIFY `SectionSubjectId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `section_subject_schedule`
+  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -727,12 +721,6 @@ ALTER TABLE `student_teacher_rating`
 --
 ALTER TABLE `subject`
   MODIFY `SubjectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `subject_schedule`
---
-ALTER TABLE `subject_schedule`
-  MODIFY `SubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `teacher`

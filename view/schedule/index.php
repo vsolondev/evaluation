@@ -3,6 +3,9 @@
 <form id="form-schedule">
     <input type="text" id="scheduleid" name="scheduleid" placeholder="scheduleid">
     <select id="scheduleday" name="scheduleday">
+        <option value="Monday To Friday">Monday To Friday</option>
+        <option value="Monday, Wednesday, Friday">Monday, Wednesday, Friday</option>
+        <option value="Tuesday, Thursday">Tuesday, Thursday</option>
         <option value="Monday">Monday</option>
         <option value="Tuesday">Tuesday</option>
         <option value="Wednesday">Wednesday</option>
