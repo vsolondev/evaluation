@@ -6,20 +6,14 @@ $returnData = [
     'data' => []
 ];
 
-$student_sss = [
-    ':StudentId' => $_POST['studentid']
-];
-
 $query = $conn->prepare(
-    'SELECT * FROM student_sss
-    INNER JOIN section_subject_schedule ON section_subject_schedule.SectionSubjectScheduleId = student_sss.SectionSubjectScheduleId
+    'SELECT * FROM section_subject_schedule
     INNER JOIN section ON section.SectionId = section_subject_schedule.SectionId
     INNER JOIN subject ON subject.SubjectId = section_subject_schedule.SubjectId
-    INNER JOIN schedule ON schedule.ScheduleId = section_subject_schedule.ScheduleId
-    WHERE StudentId = :StudentId'
+    INNER JOIN schedule ON schedule.ScheduleId = section_subject_schedule.ScheduleId'
 );
 
-if ($query->execute($student_sss)) {
+if ($query->execute()) {
     $returnData['success'] = true;
     $returnData['data'] = $query->fetchAll();
 }

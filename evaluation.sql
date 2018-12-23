@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2018 at 11:51 AM
+-- Generation Time: Dec 23, 2018 at 10:24 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -170,8 +170,8 @@ CREATE TABLE `evaluation` (
 CREATE TABLE `evaluation_schedule` (
   `EvaluationScheduleId` int(11) NOT NULL,
   `EvaluationId` int(11) NOT NULL,
-  `ScheduleFrom` date NOT NULL,
-  `ScheduleTo` date NOT NULL
+  `ScheduleDateFrom` date NOT NULL,
+  `ScheduleDateTo` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -289,7 +289,8 @@ INSERT INTO `section_subject_schedule` (`SectionSubjectScheduleId`, `SectionId`,
 (2, 1, 2, 2),
 (3, 1, 3, 3),
 (4, 1, 4, 4),
-(5, 1, 5, 5);
+(5, 1, 5, 5),
+(7, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -688,7 +689,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `section_subject_schedule`
 --
 ALTER TABLE `section_subject_schedule`
-  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student`

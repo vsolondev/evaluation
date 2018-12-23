@@ -33,10 +33,59 @@
 <button type="button" id="btn-update">Update</button>
 <button type="button" id="btn-cancel">Cancel</button>
 
+<div id="modal-student-sss" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Student Section/Subject</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>List of Student Sections/Subjects</h6>
+        <table id="table-student-sss">
+            <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Subject</th>
+                    <th>Schedule</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h6>List of Sections/Subjects</h6>
+        <table id="table-section-subject">
+            <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Subject</th>
+                    <th>Schedule</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-save-student-sss" type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     $(document).ready(function() {
         var studentData = [];
         var tableStudent = null;
+        var modalStudentSSS = $('#modal-student-sss');
+        var studentId = null;
+        var tableSectionSubject = null;
+        var tableStudentSSS = null;
+        var studentSSSData = [];
 
         $('#btn-add').click(function() {
             $.ajax({
@@ -111,6 +160,11 @@
                                             data-departmentid="` + row.DepartmentId + `"
                                             data-courseid="` + row.CourseId + `"
                                         >Edit</button>
+                                        <button 
+                                            class="btn-edit-student-sss" 
+                                            data-toggle="modal"
+                                            data-studentid="` + row.StudentId + `"
+                                        >Edit Section/Subject</button>
                                     </td>
                                 </tr>`;
                     });
@@ -195,6 +249,127 @@
                     $('#courseid').html(html);
                 }
             });
+        }
+
+        $('#table-student tbody').on('click', '.btn-edit-student-sss', function() {
+            studentId = $(this).attr('data-studentid');
+            modalStudentSSS.modal('show');
+            getAllStudentSSSByStudentId();
+        });
+
+        function getAllStudentSSSByStudentId() {
+            $.ajax({
+                url: '<?php echo base_url('queries/getAllStudentSSSByStudentId.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'studentid', value : studentId }],
+                success: function(result) {
+                    var html = ``;
+                    studentSSSData = result.data;
+
+                    if (tableStudentSSS !== null) {
+                        tableStudentSSS.destroy();
+                    }
+
+                    studentSSSData.forEach(function(row, i) {
+                        html += `<tr>
+                                    <td>` + row.SectionName + `</td>
+                                    <td>` + row.SubjectAcronym + `</td>
+                                    <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
+                                    <td>
+                                        <button 
+                                            class="btn-remove-student-sss"
+                                            data-studentsectionid="` + row.StudentSectionId + `"
+                                        >Remove</button>
+                                    </td>
+                                </tr>`;
+                    });
+
+                    $('#table-student-sss tbody').html(html);
+                    tableStudentSSS = $('#table-student-sss').DataTable();
+
+                    getAllSectionSubjectSchedule();
+                }
+            }); 
+        }
+
+        function getAllSectionSubjectSchedule() {
+            $.ajax({
+                url: '<?php echo base_url('queries/getAllSectionSubjectSchedule.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                success: function(result) {
+                    var html = ``;
+                    var sectionSubjectData = result.data;
+
+                    if (tableSectionSubject !== null) {
+                        tableSectionSubject.destroy();
+                    }
+
+                    sectionSubjectData.forEach(function(row, i) {
+                        if (isSubjectExist(row.SubjectId) === false) {
+                            html += `<tr>
+                                    <td>` + row.SectionName + `</td>
+                                    <td>` + row.SubjectAcronym + `</td>
+                                    <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
+                                    <td>
+                                        <button 
+                                            class="btn-add-student-sss"
+                                            data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
+                                        >Add</button>
+                                    </td>
+                                </tr>`;
+                        }
+                    });
+
+                    $('#table-section-subject tbody').html(html);
+                    tableSectionSubject = $('#table-section-subject').DataTable();
+                }
+            });
+        }
+
+        modalStudentSSS.on('click', '.btn-add-student-sss', function() {
+            var sssid = $(this).attr('data-sectionsubjectscheduleid');
+
+            $.ajax({
+                url: '<?php echo base_url('queries/addStudentSSS.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [
+                    { name : 'studentid', value : studentId },
+                    { name : 'sectionsubjectscheduleid', value : sssid }
+                ],
+                success: function(result) {
+                    getAllStudentSSSByStudentId();
+                }
+            });
+        });
+
+        modalStudentSSS.on('click', '.btn-remove-student-sss', function() {
+            var studentSectionId = $(this).attr('data-studentsectionid');
+
+            $.ajax({
+                url: '<?php echo base_url('queries/deleteStudentSSS.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [
+                    { name : 'studentsectionid', value : studentSectionId }
+                ],
+                success: function(result) {
+                    getAllStudentSSSByStudentId();
+                }
+            });
+        });
+
+        function isSubjectExist(subjectId) {
+            var isAdded = false;
+            studentSSSData.some(function(row) {
+                if (row.SubjectId === subjectId) {
+                    isAdded = true;
+                    return true;
+                }
+            });
+            return isAdded;
         }
     });
 </script>
