@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2018 at 10:24 PM
+-- Generation Time: Dec 24, 2018 at 05:57 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -158,7 +158,7 @@ CREATE TABLE `evaluation` (
   `StudentId` int(11) NOT NULL,
   `TeacherId` int(11) NOT NULL,
   `CommentId` int(11) NOT NULL,
-  `DateTaken` datetime NOT NULL
+  `EvaluationScheduleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -169,10 +169,17 @@ CREATE TABLE `evaluation` (
 
 CREATE TABLE `evaluation_schedule` (
   `EvaluationScheduleId` int(11) NOT NULL,
-  `EvaluationId` int(11) NOT NULL,
   `ScheduleDateFrom` date NOT NULL,
   `ScheduleDateTo` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `evaluation_schedule`
+--
+
+INSERT INTO `evaluation_schedule` (`EvaluationScheduleId`, `ScheduleDateFrom`, `ScheduleDateTo`) VALUES
+(1, '2018-12-24', '2018-12-24'),
+(2, '2018-12-25', '2018-12-25');
 
 -- --------------------------------------------------------
 
@@ -659,7 +666,7 @@ ALTER TABLE `evaluation`
 -- AUTO_INCREMENT for table `evaluation_schedule`
 --
 ALTER TABLE `evaluation_schedule`
-  MODIFY `EvaluationScheduleId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `EvaluationScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `question`

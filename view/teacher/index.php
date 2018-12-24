@@ -66,7 +66,6 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button id="btn-save-teacher-sss" type="button" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -82,6 +81,7 @@
         var tableSectionSubject = null;
         var tableTeacherSSS = null;
         var teacherSSSData = [];
+        var allTeacherSSSData = [];
 
         $('#btn-add').click(function() {
             $.ajax({
@@ -248,28 +248,30 @@
                     var html = ``;
                     var sectionSubjectData = result.data;
 
-                    if (tableSectionSubject !== null) {
-                        tableSectionSubject.destroy();
-                    }
-
-                    sectionSubjectData.forEach(function(row, i) {
-                        if (isSubjectExist(row.SubjectId) === false) {
-                            html += `<tr>
-                                    <td>` + row.SectionName + `</td>
-                                    <td>` + row.SubjectAcronym + `</td>
-                                    <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
-                                    <td>
-                                        <button 
-                                            class="btn-add-teacher-sss"
-                                            data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
-                                        >Add</button>
-                                    </td>
-                                </tr>`;
+                    getAllTeacherSSS(function() {
+                        if (tableSectionSubject !== null) {
+                            tableSectionSubject.destroy();
                         }
-                    });
 
-                    $('#table-section-subject tbody').html(html);
-                    tableSectionSubject = $('#table-section-subject').DataTable();
+                        sectionSubjectData.forEach(function(row, i) {
+                            if (isSubjectExist(row.SectionSubjectScheduleId) === false && isSubjectAlreadyHandled(row.SectionSubjectScheduleId) === false) {
+                                html += `<tr>
+                                        <td>` + row.SectionName + `</td>
+                                        <td>` + row.SubjectAcronym + `</td>
+                                        <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
+                                        <td>
+                                            <button 
+                                                class="btn-add-teacher-sss"
+                                                data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
+                                            >Add</button>
+                                        </td>
+                                    </tr>`;
+                            }
+                        });
+
+                        $('#table-section-subject tbody').html(html);
+                        tableSectionSubject = $('#table-section-subject').DataTable();
+                    });
                 }
             });
         }
@@ -307,15 +309,40 @@
             });
         });
 
-        function isSubjectExist(subjectId) {
+        function isSubjectExist(sectionSubjectScheduleId) {
             var isAdded = false;
             teacherSSSData.some(function(row) {
-                if (row.SubjectId === subjectId) {
+                if (row.SectionSubjectScheduleId === sectionSubjectScheduleId) {
                     isAdded = true;
                     return true;
                 }
             });
             return isAdded;
+        }
+
+        function getAllTeacherSSS(callBack) {
+            $.ajax({
+                url: '<?php echo base_url('queries/getAllTeacherSSS.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                success: function(result) {
+                    allTeacherSSSData = result.data;
+                    callBack(allTeacherSSSData);
+                }
+            });
+        }
+
+        function isSubjectAlreadyHandled(sectionSubjectScheduleId) {
+            var isHandled = false;
+
+            allTeacherSSSData.some(function(row) {
+                if (row.SectionSubjectScheduleId === sectionSubjectScheduleId) {
+                    isHandled = true;
+                    return true;
+                }
+            });
+
+            return isHandled;
         }
     });
 </script>

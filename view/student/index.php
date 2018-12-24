@@ -70,7 +70,6 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button id="btn-save-student-sss" type="button" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
