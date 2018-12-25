@@ -29,18 +29,18 @@
 <button type="button" id="btn-update">Update</button>
 <button type="button" id="btn-cancel">Cancel</button>
 
-<div id="modal-teacher-sss" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-edit-subjects" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Teacher Section/Subject</h5>
+        <h5 class="modal-title">Edit Teacher Subjects</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h6>List of Teacher Sections/Subjects</h6>
-        <table id="table-teacher-sss">
+        <h6>List of Assigned Subjects</h6>
+        <table id="table-assigned-subjects">
             <thead>
                 <tr>
                     <th>Section</th>
@@ -52,8 +52,8 @@
             <tbody></tbody>
         </table>
 
-        <h6>List of Sections/Subjects</h6>
-        <table id="table-section-subject">
+        <h6>List of Unassigned Subjects</h6>
+        <table id="table-unassigned-subjects">
             <thead>
                 <tr>
                     <th>Section</th>
@@ -76,12 +76,10 @@
     $(document).ready(function() {
         var teacherData = [];
         var tableTeacher = null;
-        var modalTeacherSSS = $('#modal-teacher-sss');
+        var modalEditSubjects = $('#modal-edit-subjects');
         var teacherId = null;
-        var tableSectionSubject = null;
-        var tableTeacherSSS = null;
-        var teacherSSSData = [];
-        var allTeacherSSSData = [];
+        var tableAssignedSubjects = null;
+        var tableUnassignedSubjects = null;
 
         $('#btn-add').click(function() {
             $.ajax({
@@ -151,10 +149,10 @@
                                             data-departmentid="` + row.DepartmentId + `"
                                         >Edit</button>
                                         <button 
-                                            class="btn-edit-teacher-sss" 
+                                            class="btn-edit-subjects" 
                                             data-toggle="modal"
                                             data-teacherid="` + row.TeacherId + `"
-                                        >Edit Section/Subject</button>
+                                        >Assigned/Unassigned Subjects</button>
                                     </td>
                                 </tr>`;
                     });
@@ -197,90 +195,85 @@
             });
         }
         
-        $('#table-teacher tbody').on('click', '.btn-edit-teacher-sss', function() {
+        $('#table-teacher tbody').on('click', '.btn-edit-subjects', function() {
             teacherId = $(this).attr('data-teacherid');
-            modalTeacherSSS.modal('show');
-            getAllTeacherSSSByTeacherId();
+            modalEditSubjects.modal('show');
+            getAllAssignedSubjectsByTeacherId();
+            getAllUnassignedSubjects();
         });
 
-        function getAllTeacherSSSByTeacherId() {
+        function getAllAssignedSubjectsByTeacherId() {
             $.ajax({
-                url: '<?php echo base_url('queries/getAllTeacherSSSByTeacherId.php'); ?>',
+                url: '<?php echo base_url('queries/getAllAssignedSubjectsByTeacherId.php'); ?>',
                 type: 'post',
                 dataType: 'json',
                 data: [{ name : 'teacherid', value : teacherId }],
                 success: function(result) {
                     var html = ``;
-                    teacherSSSData = result.data;
+                    var assignedSubjectsData = result.data;
 
-                    if (tableTeacherSSS !== null) {
-                        tableTeacherSSS.destroy();
+                    if (tableAssignedSubjects !== null) {
+                        tableAssignedSubjects.destroy();
                     }
 
-                    teacherSSSData.forEach(function(row, i) {
+                    assignedSubjectsData.forEach(function(row, i) {
                         html += `<tr>
                                     <td>` + row.SectionName + `</td>
                                     <td>` + row.SubjectAcronym + `</td>
                                     <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
                                     <td>
                                         <button 
-                                            class="btn-remove-teacher-sss"
-                                            data-teachersectionid="` + row.TeacherSectionId + `"
-                                        >Remove</button>
+                                            class="btn-unassign-subject"
+                                            data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
+                                        >Unassign</button>
                                     </td>
                                 </tr>`;
                     });
 
-                    $('#table-teacher-sss tbody').html(html);
-                    tableTeacherSSS = $('#table-teacher-sss').DataTable();
-
-                    getAllSectionSubjectSchedule();
+                    $('#table-assigned-subjects tbody').html(html);
+                    tableAssignedSubjects = $('#table-assigned-subjects').DataTable();
                 }
             }); 
         }
 
-        function getAllSectionSubjectSchedule() {
+        function getAllUnassignedSubjects() {
             $.ajax({
-                url: '<?php echo base_url('queries/getAllSectionSubjectSchedule.php'); ?>',
+                url: '<?php echo base_url('queries/getAllUnassignedSubjects.php'); ?>',
                 type: 'post',
                 dataType: 'json',
                 success: function(result) {
                     var html = ``;
-                    var sectionSubjectData = result.data;
+                    var unassignedSubjectsData = result.data;
 
-                    getAllTeacherSSS(function() {
-                        if (tableSectionSubject !== null) {
-                            tableSectionSubject.destroy();
-                        }
+                    if (tableUnassignedSubjects !== null) {
+                        tableUnassignedSubjects.destroy();
+                    }
 
-                        sectionSubjectData.forEach(function(row, i) {
-                            if (isSubjectExist(row.SectionSubjectScheduleId) === false && isSubjectAlreadyHandled(row.SectionSubjectScheduleId) === false) {
-                                html += `<tr>
-                                        <td>` + row.SectionName + `</td>
-                                        <td>` + row.SubjectAcronym + `</td>
-                                        <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
-                                        <td>
-                                            <button 
-                                                class="btn-add-teacher-sss"
-                                                data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
-                                            >Add</button>
-                                        </td>
-                                    </tr>`;
-                            }
-                        });
-
-                        $('#table-section-subject tbody').html(html);
-                        tableSectionSubject = $('#table-section-subject').DataTable();
+                    unassignedSubjectsData.forEach(function(row, i) {
+                        html += `<tr>
+                                    <td>` + row.SectionName + `</td>
+                                    <td>` + row.SubjectAcronym + `</td>
+                                    <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
+                                    <td>
+                                        <button 
+                                            class="btn-assign-subject"
+                                            data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
+                                        >Assign</button>
+                                    </td>
+                                </tr>`;
                     });
+
+                    $('#table-unassigned-subjects tbody').html(html);
+                    tableUnassignedSubjects = $('#table-unassigned-subjects').DataTable();
                 }
             });
         }
 
-        modalTeacherSSS.on('click', '.btn-add-teacher-sss', function() {
+        modalEditSubjects.on('click', '.btn-assign-subject', function() {
             var sssid = $(this).attr('data-sectionsubjectscheduleid');
 
             $.ajax({
-                url: '<?php echo base_url('queries/addTeacherSSS.php'); ?>',
+                url: '<?php echo base_url('queries/assignSubject.php'); ?>',
                 type: 'post',
                 dataType: 'json',
                 data: [
@@ -288,62 +281,28 @@
                     { name : 'sectionsubjectscheduleid', value : sssid }
                 ],
                 success: function(result) {
-                    getAllTeacherSSSByTeacherId();
+                    getAllAssignedSubjectsByTeacherId();
+                    getAllUnassignedSubjects();
                 }
             });
         });
 
-        modalTeacherSSS.on('click', '.btn-remove-teacher-sss', function() {
-            var teacherSectionId = $(this).attr('data-teachersectionid');
+        modalEditSubjects.on('click', '.btn-unassign-subject', function() {
+            var sssid = $(this).attr('data-sectionsubjectscheduleid');
 
             $.ajax({
-                url: '<?php echo base_url('queries/deleteTeacherSSS.php'); ?>',
+                url: '<?php echo base_url('queries/unassignSubject.php'); ?>',
                 type: 'post',
                 dataType: 'json',
                 data: [
-                    { name : 'teachersectionid', value : teacherSectionId }
+                    { name : 'sectionsubjectscheduleid', value : sssid }
                 ],
                 success: function(result) {
-                    getAllTeacherSSSByTeacherId();
+                    getAllAssignedSubjectsByTeacherId();
+                    getAllUnassignedSubjects();
                 }
             });
         });
-
-        function isSubjectExist(sectionSubjectScheduleId) {
-            var isAdded = false;
-            teacherSSSData.some(function(row) {
-                if (row.SectionSubjectScheduleId === sectionSubjectScheduleId) {
-                    isAdded = true;
-                    return true;
-                }
-            });
-            return isAdded;
-        }
-
-        function getAllTeacherSSS(callBack) {
-            $.ajax({
-                url: '<?php echo base_url('queries/getAllTeacherSSS.php'); ?>',
-                type: 'post',
-                dataType: 'json',
-                success: function(result) {
-                    allTeacherSSSData = result.data;
-                    callBack(allTeacherSSSData);
-                }
-            });
-        }
-
-        function isSubjectAlreadyHandled(sectionSubjectScheduleId) {
-            var isHandled = false;
-
-            allTeacherSSSData.some(function(row) {
-                if (row.SectionSubjectScheduleId === sectionSubjectScheduleId) {
-                    isHandled = true;
-                    return true;
-                }
-            });
-
-            return isHandled;
-        }
     });
 </script>
 

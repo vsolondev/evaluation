@@ -1,7 +1,7 @@
 <?php
 require_once '../connection.php';
 
-$teacher_sss = [
+$param = [
     ':TeacherId' => $_POST['teacherid'],
     ':SectionSubjectScheduleId' => $_POST['sectionsubjectscheduleid']
 ];
@@ -10,8 +10,9 @@ $returnData = [
     'success' => false
 ];
 
-$query = $conn->prepare('INSERT INTO teacher_sss (TeacherId, SectionSubjectScheduleId) VALUES (:TeacherId, :SectionSubjectScheduleId)');
-if ($query->execute($teacher_sss)) {
+$query = $conn->prepare('UPDATE section_subject_schedule SET TeacherId = :TeacherId WHERE SectionSubjectScheduleId = :SectionSubjectScheduleId');
+
+if ($query->execute($param)) {
     $returnData['success'] = true;
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2018 at 05:57 PM
+-- Generation Time: Dec 25, 2018 at 10:22 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -284,20 +284,19 @@ CREATE TABLE `section_subject_schedule` (
   `SectionSubjectScheduleId` int(11) NOT NULL,
   `SectionId` int(11) NOT NULL,
   `SubjectId` int(11) NOT NULL,
-  `ScheduleId` int(11) NOT NULL
+  `ScheduleId` int(11) NOT NULL,
+  `TeacherId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `section_subject_schedule`
 --
 
-INSERT INTO `section_subject_schedule` (`SectionSubjectScheduleId`, `SectionId`, `SubjectId`, `ScheduleId`) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 1, 3, 3),
-(4, 1, 4, 4),
-(5, 1, 5, 5),
-(7, 2, 1, 1);
+INSERT INTO `section_subject_schedule` (`SectionSubjectScheduleId`, `SectionId`, `SubjectId`, `ScheduleId`, `TeacherId`) VALUES
+(1, 1, 4, 1, 1),
+(2, 1, 1, 2, 2),
+(3, 1, 3, 3, 4),
+(4, 1, 5, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -361,6 +360,24 @@ CREATE TABLE `student_sss` (
   `StudentId` int(11) NOT NULL,
   `SectionSubjectScheduleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_sss`
+--
+
+INSERT INTO `student_sss` (`StudentSectionId`, `StudentId`, `SectionSubjectScheduleId`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 2, 1),
+(6, 2, 2),
+(7, 2, 3),
+(8, 2, 4),
+(9, 3, 1),
+(10, 3, 2),
+(11, 3, 3),
+(12, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -446,18 +463,6 @@ INSERT INTO `teacher_account` (`TeacherAccountId`, `TeacherId`, `AccountId`) VAL
 (3, 3, 4),
 (4, 4, 5),
 (5, 5, 6);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `teacher_sss`
---
-
-CREATE TABLE `teacher_sss` (
-  `TeacherSectionId` int(11) NOT NULL,
-  `TeacherId` int(11) NOT NULL,
-  `SectionSubjectScheduleId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -605,12 +610,6 @@ ALTER TABLE `teacher_account`
   ADD PRIMARY KEY (`TeacherAccountId`);
 
 --
--- Indexes for table `teacher_sss`
---
-ALTER TABLE `teacher_sss`
-  ADD PRIMARY KEY (`TeacherSectionId`);
-
---
 -- Indexes for table `yearlevel`
 --
 ALTER TABLE `yearlevel`
@@ -696,7 +695,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `section_subject_schedule`
 --
 ALTER TABLE `section_subject_schedule`
-  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -714,7 +713,7 @@ ALTER TABLE `student_account`
 -- AUTO_INCREMENT for table `student_sss`
 --
 ALTER TABLE `student_sss`
-  MODIFY `StudentSectionId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `StudentSectionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `student_teacher_rating`
@@ -739,12 +738,6 @@ ALTER TABLE `teacher`
 --
 ALTER TABLE `teacher_account`
   MODIFY `TeacherAccountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `teacher_sss`
---
-ALTER TABLE `teacher_sss`
-  MODIFY `TeacherSectionId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `yearlevel`

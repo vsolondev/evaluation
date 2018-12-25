@@ -207,8 +207,7 @@
                 }
             });
         }
-
-        
+   
         getAllDepartment();
 
         function getAllDepartment() {
@@ -228,8 +227,7 @@
                 }
             });
         }
-
-        
+  
         getAllCourse();
 
         function getAllCourse() {
