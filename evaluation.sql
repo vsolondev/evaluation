@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2018 at 10:22 AM
+-- Generation Time: Dec 25, 2018 at 06:09 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -95,18 +95,6 @@ INSERT INTO `admin_account` (`AdminAccountId`, `AdminId`, `AccountId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
---
-
-CREATE TABLE `comment` (
-  `CommentId` int(11) NOT NULL,
-  `BadComment` varchar(250) NOT NULL,
-  `GoodComment` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `course`
 --
 
@@ -157,8 +145,9 @@ CREATE TABLE `evaluation` (
   `EvaluationId` int(11) NOT NULL,
   `StudentId` int(11) NOT NULL,
   `TeacherId` int(11) NOT NULL,
-  `CommentId` int(11) NOT NULL,
-  `EvaluationScheduleId` int(11) NOT NULL
+  `EvaluationScheduleId` int(11) NOT NULL,
+  `BadComment` varchar(255) DEFAULT NULL,
+  `GoodComment` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -170,16 +159,18 @@ CREATE TABLE `evaluation` (
 CREATE TABLE `evaluation_schedule` (
   `EvaluationScheduleId` int(11) NOT NULL,
   `ScheduleDateFrom` date NOT NULL,
-  `ScheduleDateTo` date NOT NULL
+  `ScheduleDateTo` date NOT NULL,
+  `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `evaluation_schedule`
 --
 
-INSERT INTO `evaluation_schedule` (`EvaluationScheduleId`, `ScheduleDateFrom`, `ScheduleDateTo`) VALUES
-(1, '2018-12-24', '2018-12-24'),
-(2, '2018-12-25', '2018-12-25');
+INSERT INTO `evaluation_schedule` (`EvaluationScheduleId`, `ScheduleDateFrom`, `ScheduleDateTo`, `IsActive`) VALUES
+(1, '2018-12-24', '2018-12-24', 0),
+(2, '2018-12-25', '2018-12-25', 0),
+(3, '2018-12-26', '2018-12-26', 1);
 
 -- --------------------------------------------------------
 
@@ -508,12 +499,6 @@ ALTER TABLE `admin_account`
   ADD PRIMARY KEY (`AdminAccountId`);
 
 --
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`CommentId`);
-
---
 -- Indexes for table `course`
 --
 ALTER TABLE `course`
@@ -638,12 +623,6 @@ ALTER TABLE `admin_account`
   MODIFY `AdminAccountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `comment`
---
-ALTER TABLE `comment`
-  MODIFY `CommentId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
@@ -665,7 +644,7 @@ ALTER TABLE `evaluation`
 -- AUTO_INCREMENT for table `evaluation_schedule`
 --
 ALTER TABLE `evaluation_schedule`
-  MODIFY `EvaluationScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EvaluationScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `question`

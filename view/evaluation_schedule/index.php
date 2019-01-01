@@ -88,6 +88,7 @@
                                             data-scheduledatefrom="` + row.ScheduleDateFrom + `"
                                             data-scheduledateto="` + row.ScheduleDateTo + `"
                                         >Edit</button>
+                                       ` + generateActivateButton(row) + `
                                     </td>
                                 </tr>`;
                     });
@@ -103,6 +104,29 @@
             $('#scheduledatefrom').val('');
             $('#scheduledateto').val('');
         }
+
+        function generateActivateButton(row) {
+            if (row.IsActive === "0") {
+                return `<button 
+                    class="btn-activate"
+                    data-evaluationscheduleid="` + row.EvaluationScheduleId + `"
+                >Activate</button>`
+            }
+            
+            return ``;
+        }
+
+        $(document).on('click', '.btn-activate', function() {
+            $.ajax({
+                url: '<?php echo base_url('queries/activateEvaluationSchedule.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'evaluationscheduleid', value : $(this).attr('data-evaluationscheduleid') }],
+                success: function(result) {
+                    getAllEvaluationSchedule();
+                }
+            });
+        });
     });
 </script>
 

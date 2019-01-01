@@ -19,5 +19,6 @@
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('datatable/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?php echo base_url('datatable/dataTables.bootstrap4.min.js'); ?>"></script>
+    <script src="<?php echo base_url('common.js'); ?>"></script>
   </head>
   <body>

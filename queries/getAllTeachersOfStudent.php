@@ -1,5 +1,6 @@
 <?php
 require_once '../connection.php';
+session_start();
 
 $returnData = [
     'success' => false,
@@ -7,7 +8,7 @@ $returnData = [
 ];
 
 $param = [
-    ':StudentId' => $_POST['studentid']
+    ':StudentId' => $_SESSION['studentid']
 ];
 
 $query = $conn->prepare(
@@ -17,6 +18,7 @@ $query = $conn->prepare(
     INNER JOIN subject ON subject.SubjectId = section_subject_schedule.SubjectId
     INNER JOIN schedule ON schedule.ScheduleId = section_subject_schedule.ScheduleId
     INNER JOIN teacher ON teacher.TeacherId = section_subject_schedule.TeacherId
+    INNER JOIN evaluation ON evaluation.TeacherId = section_subject_schedule.TeacherId
     WHERE student_sss.StudentId = :StudentId'
 );
 
