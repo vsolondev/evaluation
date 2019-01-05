@@ -11,6 +11,10 @@
         text-align: center;
         margin: 1rem;
     }
+
+    #btn-save {
+        display: none;
+    }
 </style>
 
 <?php echo $_SESSION['studentid']; ?>
@@ -21,6 +25,7 @@
 <div class="text-center">
     <button type="button" id="btn-previous">Previous</button>
     <button type="button" id="btn-next">Next</button>
+    <button type="button" id="btn-save">Save</button>
 </div>
 
 <script>
@@ -54,6 +59,9 @@
                     $('#question').text(questionData.Question);
                     questionId = parseInt(questionData.QuestionId);
                     getAllTeachersOfStudent();
+
+                    disableNextOrPreviousButton(true);
+                    disableNextOrPreviousButton(false);
                 }
             });
         }
@@ -129,7 +137,18 @@
             });
         }
 
-        $('#btn-next').click(function() {
+        function disableNextOrPreviousButton(isNext) {
+            getNextOrPreviousQuestion(isNext, function(callBackData) {
+                if (callBackData === false) {
+                    var buttonId = (isNext === true) ? '#btn-next' : '#btn-previous';
+                    $(buttonId).attr('disabled', 'disabled');
+                    $('#btn-save').show();
+                }
+            });
+        }
+
+        $('#btn-next, #btn-previous, #btn-save').click(function() {
+            var buttonId = this.id;
             var data = [];
             var hasNaN = false;
             
@@ -149,11 +168,11 @@
             });
 
             if (hasNaN === false) {
-                saveStudentTeacherRating(data);
+                saveStudentTeacherRating(data, buttonId);
             }
         });
 
-        function saveStudentTeacherRating(data) {
+        function saveStudentTeacherRating(data, buttonId) {
             $.ajax({
                 url: '<?php echo base_url('queries/saveStudentTeacherRating.php'); ?>',
                 type: 'post',
@@ -163,13 +182,37 @@
                     var success = result.success;
 
                     if (success) {
-                        
+                        if (buttonId !== 'btn-save') {
+                            var isNext = (buttonId === 'btn-next') ? true : false;
+
+                            getNextOrPreviousQuestion(isNext, function(callBackData) {
+                                window.location.href = '<?php echo base_url("view/evaluation?questionid='+callBackData.QuestionId+'"); ?>';
+                            });
+                        }
                     }
                 }
             });
         }
-        
-        /* TODO buhatan ug next/prev algo */
+
+        function getNextOrPreviousQuestion(isNext, callBack) {
+            var url = '';
+
+            if (isNext === true) {
+                url = '<?php echo base_url('queries/nextQuestion.php'); ?>';
+            } else {
+                url = '<?php echo base_url('queries/previousQuestion.php'); ?>';
+            }
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'questionid' , value : questionId }],
+                success: function(result) {
+                    callBack(result.data);
+                }
+            });
+        }
     });
 </script>
 

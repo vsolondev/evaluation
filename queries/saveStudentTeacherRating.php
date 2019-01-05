@@ -9,12 +9,14 @@ $returnData = [
 
 foreach ($data as $key => $value) {
     $getStudentTeacherRatingParam = [
-        ':EvaluationId' => $value->evaluationid
+        ':EvaluationId' => $value->evaluationid,
+        ':QuestionId' => $value->questionid
     ];
 
     $getStudentTeacherRatingQuery = $conn->prepare('
         SELECT * FROM student_teacher_rating
         WHERE EvaluationId = :EvaluationId
+        AND QuestionId = :QuestionId
     ');
 
     $getStudentTeacherRatingQuery->execute($getStudentTeacherRatingParam);
@@ -23,11 +25,14 @@ foreach ($data as $key => $value) {
     if ($getStudentTeacherRatingCount > 0) {
         $updateStudentTeacherRatingParam = [
             ':EvaluationId' => $value->evaluationid,
+            ':QuestionId' => $value->questionid,
             ':RatingId' => $value->ratingid
         ];
 
         $updateStudentTeacherRatingQuery = $conn->prepare('
-            UPDATE student_teacher_rating SET RatingId = :RatingId WHERE EvaluationId = :EvaluationId
+            UPDATE student_teacher_rating SET RatingId = :RatingId 
+            WHERE EvaluationId = :EvaluationId
+            AND QuestionId = :QuestionId
         ');
 
         if ($updateStudentTeacherRatingQuery->execute($updateStudentTeacherRatingParam)) {
