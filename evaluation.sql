@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2018 at 06:09 PM
+-- Generation Time: Jan 06, 2019 at 12:56 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -146,9 +146,27 @@ CREATE TABLE `evaluation` (
   `StudentId` int(11) NOT NULL,
   `TeacherId` int(11) NOT NULL,
   `EvaluationScheduleId` int(11) NOT NULL,
-  `BadComment` varchar(255) DEFAULT NULL,
-  `GoodComment` varchar(255) DEFAULT NULL
+  `BadComment` varchar(255) DEFAULT '',
+  `GoodComment` varchar(255) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `evaluation`
+--
+
+INSERT INTO `evaluation` (`EvaluationId`, `StudentId`, `TeacherId`, `EvaluationScheduleId`, `BadComment`, `GoodComment`) VALUES
+(1, 1, 1, 3, 'bad comment 1', 'good comment 1'),
+(2, 1, 2, 3, 'bad comment 2', 'good comment 2'),
+(3, 1, 4, 3, 'bad comment 3', 'good comment 3'),
+(4, 1, 5, 3, 'bad comment 4', 'good comment 4'),
+(5, 2, 1, 3, 'student2 badcomment', 'student2 good comment'),
+(6, 2, 2, 3, 'student2 badcomment', 'student2 good comment'),
+(7, 2, 4, 3, 'student2 badcomment', 'student2 good comment'),
+(8, 2, 5, 3, 'student2 badcomment', 'student2 good comment'),
+(9, 3, 1, 3, '', ''),
+(10, 3, 2, 3, '', ''),
+(11, 3, 4, 3, '', ''),
+(12, 3, 5, 3, '', '');
 
 -- --------------------------------------------------------
 
@@ -382,6 +400,52 @@ CREATE TABLE `student_teacher_rating` (
   `QuestionId` int(11) NOT NULL,
   `RatingId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_teacher_rating`
+--
+
+INSERT INTO `student_teacher_rating` (`StudentTeacherRatingId`, `EvaluationId`, `QuestionId`, `RatingId`) VALUES
+(1, 1, 1, 5),
+(2, 2, 1, 5),
+(3, 3, 1, 5),
+(4, 4, 1, 5),
+(5, 1, 2, 4),
+(6, 2, 2, 4),
+(7, 3, 2, 4),
+(8, 4, 2, 4),
+(9, 1, 3, 3),
+(10, 2, 3, 3),
+(11, 3, 3, 3),
+(12, 4, 3, 3),
+(13, 1, 4, 2),
+(14, 2, 4, 2),
+(15, 3, 4, 2),
+(16, 4, 4, 2),
+(17, 1, 5, 1),
+(18, 2, 5, 1),
+(19, 3, 5, 1),
+(20, 4, 5, 1),
+(21, 5, 1, 5),
+(22, 6, 1, 5),
+(23, 7, 1, 5),
+(24, 8, 1, 5),
+(25, 5, 2, 5),
+(26, 6, 2, 5),
+(27, 7, 2, 5),
+(28, 8, 2, 5),
+(29, 5, 3, 5),
+(30, 6, 3, 5),
+(31, 7, 3, 5),
+(32, 8, 3, 5),
+(33, 5, 4, 5),
+(34, 6, 4, 5),
+(35, 7, 4, 5),
+(36, 8, 4, 5),
+(37, 5, 5, 5),
+(38, 6, 5, 5),
+(39, 7, 5, 5),
+(40, 8, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -638,7 +702,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `EvaluationId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `EvaluationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `evaluation_schedule`
@@ -698,7 +762,7 @@ ALTER TABLE `student_sss`
 -- AUTO_INCREMENT for table `student_teacher_rating`
 --
 ALTER TABLE `student_teacher_rating`
-  MODIFY `StudentTeacherRatingId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `StudentTeacherRatingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `subject`
