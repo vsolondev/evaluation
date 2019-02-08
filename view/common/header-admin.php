@@ -22,3 +22,40 @@
     <script src="<?php echo base_url('common.js'); ?>"></script>
   </head>
   <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Evaluation System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Manage
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
+              <a class="dropdown-item" href="<?php echo base_url('view/admin/index.php'); ?>">Admin</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/teacher/index.php'); ?>">Teacher</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/student/index.php'); ?>">Student</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="<?php echo base_url('view/yearlevel/index.php'); ?>">Year Level</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/department/index.php'); ?>">Department</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/course/index.php'); ?>">Course</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/section/index.php'); ?>">Section</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/subject/index.php'); ?>">Subject</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/schedule/index.php'); ?>">Schedule</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="<?php echo base_url('view/question/index.php'); ?>">Question</a>
+              <a class="dropdown-item" href="<?php echo base_url('view/rating/index.php'); ?>">Rating</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
