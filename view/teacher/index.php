@@ -1,33 +1,84 @@
 <?php require_once '../common/header-admin.php'; ?>
 
-<form id="form-teacher">
-    <input type="text" id="teacherid" name="teacherid" placeholder="teacherid">
-    <input type="text" id="firstname" name="firstname" placeholder="firstname">
-    <input type="text" id="lastname" name="lastname" placeholder="lastname">
-    <input type="text" id="middlename" name="middlename" placeholder="middlename">
-    <select id="departmentid" name="departmentid"></select>
-    <input type="text" id="username" name="username" placeholder="username">
-    <input type="text" id="password" name="password" placeholder="password">
-    <input type="text" id="pin" name="pin" placeholder="pin">
-</form>
+<style>
+    #form-teacher label {
+        display: inline-block;
+        width: 120px;
+    }
 
-<table id="table-teacher">
-    <thead>
-        <tr>
-            <th>TeacherId</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>MiddleName</th>
-            <th>DepartmentName</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+    #form-teacher input,
+    #form-teacher select {
+        display: inline-block;
+        padding: 4px 8px;
+        width: 200px;
+    }
+</style>
 
-<button type="button" id="btn-add">Add</button>
-<button type="button" id="btn-update">Update</button>
-<button type="button" id="btn-cancel">Cancel</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <form id="form-teacher">
+                <input type="text" id="teacherid" name="teacherid" placeholder="teacherid" hidden>
+
+                <div class="row mt-4 mb-5">
+                    <div class="col-12 col-md-6">
+                        <label for="firstname">Firstname: </label>
+                        <input type="text" id="firstname" name="firstname" placeholder="firstname">
+                        <br>
+                        <label for="lastname">Lastname: </label>
+                        <input type="text" id="lastname" name="lastname" placeholder="lastname">
+                        <br>
+                        <label for="middlename">Middlename: </label>
+                        <input type="text" id="middlename" name="middlename" placeholder="middlename">
+                        <br>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="departmentid">Department: </label>
+                        <select id="departmentid" name="departmentid"></select>
+                        <br>
+                        <label for="username">Username: </label>
+                        <input type="text" id="username" name="username" placeholder="username">
+                        <br>
+                        <label for="password">Password: </label>
+                        <input type="text" id="password" name="password" placeholder="password">
+                        <br>
+                        <label for="pin">Pin: </label>
+                        <input type="text" id="pin" name="pin" placeholder="pin">
+
+                        <br>
+                        <div class="mt-4">
+                            <button type="button" id="btn-add" class="btn btn-primary btn-sm">Add</button>
+                            <button type="button" id="btn-update" class="btn btn-secondary btn-sm">Update</button>
+                            <button type="button" id="btn-cancel" class="btn btn-white btn-sm">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table id="table-teacher" class="table table-striped table-sm table-borderless nowrap">
+                    <thead>
+                        <tr>
+                            <th>TeacherId</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>MiddleName</th>
+                            <th>DepartmentName</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="modal-edit-subjects" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -40,7 +91,7 @@
       </div>
       <div class="modal-body">
         <h6>List of Assigned Subjects</h6>
-        <table id="table-assigned-subjects">
+        <table id="table-assigned-subjects" class="table table-striped table-sm table-borderless nowrap">
             <thead>
                 <tr>
                     <th>Section</th>
@@ -52,8 +103,8 @@
             <tbody></tbody>
         </table>
 
-        <h6>List of Unassigned Subjects</h6>
-        <table id="table-unassigned-subjects">
+        <h6 class="mt-5">List of Unassigned Subjects</h6>
+        <table id="table-unassigned-subjects" class="table table-striped table-sm table-borderless nowrap">
             <thead>
                 <tr>
                     <th>Section</th>
@@ -141,7 +192,7 @@
                                     <td>` + row.DepartmentName + `</td>
                                     <td>
                                         <button 
-                                            class="btn-edit"
+                                            class="btn-edit btn btn-primary btn-sm"
                                             data-teacherid="` + row.TeacherId + `"
                                             data-firstname="` + row.FirstName + `"
                                             data-lastname="` + row.LastName + `"
@@ -149,7 +200,7 @@
                                             data-departmentid="` + row.DepartmentId + `"
                                         >Edit</button>
                                         <button 
-                                            class="btn-edit-subjects" 
+                                            class="btn-edit-subjects btn btn-secondary btn-sm" 
                                             data-toggle="modal"
                                             data-teacherid="` + row.TeacherId + `"
                                         >Assigned/Unassigned Subjects</button>
@@ -223,7 +274,7 @@
                                     <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
                                     <td>
                                         <button 
-                                            class="btn-unassign-subject"
+                                            class="btn-unassign-subject btn btn-secondary btn-sm"
                                             data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
                                         >Unassign</button>
                                     </td>
@@ -256,7 +307,7 @@
                                     <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
                                     <td>
                                         <button 
-                                            class="btn-assign-subject"
+                                            class="btn-assign-subject btn btn-primary btn-sm"
                                             data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
                                         >Assign</button>
                                     </td>
