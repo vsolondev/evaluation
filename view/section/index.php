@@ -1,24 +1,68 @@
 <?php require_once '../common/header-admin.php'; ?>
 
-<form id="form-section">
-    <input type="text" id="sectionid" name="sectionid" placeholder="sectionid">
-    <input type="text" id="sectionname" name="sectionname" placeholder="sectionname">
-</form>
+<style>
+    #form-section label {
+        display: inline-block;
+        width: 120px;
+    }
 
-<table id="table-section">
-    <thead>
-        <tr>
-            <th>SectionId</th>
-            <th>SectionName</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+    #form-section input,
+    #form-section select {
+        display: inline-block;
+        padding: 4px 8px;
+        width: 200px;
+    }
 
-<button type="button" id="btn-add">Add</button>
-<button type="button" id="btn-update">Update</button>
-<button type="button" id="btn-cancel">Cancel</button>
+    #form-section-subject label {
+        display: inline-block;
+        width: 120px;
+    }
+
+    #form-section-subject input,
+    #form-section-subject select {
+        display: inline-block;
+        padding: 4px 8px;
+        width: 200px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row mt-4 mb-5">
+        <div class="col-12 col-md-6">
+            <form id="form-section">
+                <input type="text" id="sectionid" name="sectionid" placeholder="sectionid" hidden>
+
+                <label for="sectionname">Section: </label>
+                <input type="text" id="sectionname" name="sectionname" placeholder="sectionname">
+            </form>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <button type="button" id="btn-add" class="btn btn-primary btn-sm">Add</button>
+            <button type="button" id="btn-update" class="btn btn-secondary btn-sm">Update</button>
+            <button type="button" id="btn-cancel" class="btn btn-white btn-sm">Cancel</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table id="table-section" class="table table-striped table-sm table-borderless nowrap">
+                    <thead>
+                        <tr>
+                            <th>SectionId</th>
+                            <th>SectionName</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div id="modal-add-subjects" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -29,26 +73,44 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form id="form-section-subject">
-            <input type="text" id="sectionsubjectscheduleid" name="sectionsubjectscheduleid" placeholder="sectionsubjectscheduleid">
-            <input type="text" id="sectionid" name="sectionid" placeholder="sectionid">
-            <select id="subjectid" name="subjectid"></select>
-            <select id="scheduleid" name="scheduleid"></select>
-        </form>
-        <button id="btn-add-section-subject">Add</button>
-        <button id="btn-update-section-subject">Update</button>
 
-        <table id="table-section-subject">
-            <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th>Schedule</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <form id="form-section-subject">
+                    <input type="text" id="sectionsubjectscheduleid" name="sectionsubjectscheduleid" placeholder="sectionsubjectscheduleid" hidden>
+                    <input type="text" id="sectionid" name="sectionid" placeholder="sectionid" hidden>
+
+                    <label for="subjectid">Subject: </label>
+                    <select id="subjectid" name="subjectid"></select>
+                    <br>
+                    <label for="scheduleid">Schedule: </label>
+                    <select id="scheduleid" name="scheduleid"></select>
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <button id="btn-add-section-subject" class="btn btn-primary btn-sm">Add</button>
+                <button id="btn-update-section-subject" class="btn btn-secondary btn-sm">Update</button>  
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="table-section-subject" class="table table-striped table-sm table-borderless nowrap">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Schedule</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -119,13 +181,13 @@
                                     <td>` + row.SectionName + `</td>
                                     <td>
                                         <button 
-                                            class="btn-edit"
+                                            class="btn-edit btn btn-primary btn-sm"
                                             data-sectionid="` + row.SectionId + `"
                                             data-sectionname="` + row.SectionName + `"
                                         >Edit</button>
                                         <button 
                                             type="button" 
-                                            class="btn-addsubjects"
+                                            class="btn-addsubjects btn btn-secondary btn-sm"
                                             data-toggle="modal" 
                                             data-sectionid="` + row.SectionId + `"
                                         >Add Subjects</button>
@@ -173,13 +235,13 @@
                                     <td>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</td>
                                     <td>
                                         <button 
-                                            class="btn-edit"
+                                            class="btn-edit btn btn-primary btn-sm"
                                             data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
                                             data-subjectid="` + row.SubjectId + `"
                                             data-scheduleid="` + row.ScheduleId + `"
                                         >Edit</button>
                                         <button 
-                                            class="btn-delete"
+                                            class="btn-delete btn btn-secondary btn-sm"
                                             data-sectionsubjectscheduleid="` + row.SectionSubjectScheduleId + `"
                                         >Delete</button>
                                     </td>

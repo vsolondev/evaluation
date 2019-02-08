@@ -98,7 +98,7 @@
 
       <div class="modal-body">
         <h6>List of Student Sections/Subjects</h6>
-        <table id="table-student-sss" class="table table-striped table-sm table-borderless">
+        <table id="table-student-sss" class="table table-striped table-sm table-borderless nowrap">
             <thead>
                 <tr>
                     <th>Section</th>
@@ -111,7 +111,7 @@
         </table>
 
         <h6 class="mt-4">List of Sections/Subjects</h6>
-        <table id="table-section-subject" class="table table-striped table-sm table-borderless">
+        <table id="table-section-subject" class="table table-striped table-sm table-borderless nowrap">
             <thead>
                 <tr>
                     <th>Section</th>
