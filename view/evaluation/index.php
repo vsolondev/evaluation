@@ -1,4 +1,4 @@
-<?php require_once '../common/header-admin.php'; ?>
+<?php require_once '../common/header-student.php'; ?>
 <?php session_start(); ?>
 
 <style>
@@ -216,4 +216,4 @@
     });
 </script>
 
-<?php require_once '../common/footer-admin.php'; ?>
+<?php require_once '../common/footer-student.php'; ?>

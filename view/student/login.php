@@ -1,4 +1,4 @@
-<?php require_once '../common/header-admin.php'; ?>
+<?php require_once '../common/header.php'; ?>
 
 <form id="form-login">
     <input type="text" name="username" id="username" placeholder="username">
@@ -30,4 +30,4 @@
     });
 </script>
 
-<?php require_once '../common/footer-admin.php'; ?>
+<?php require_once '../common/footer.php'; ?>

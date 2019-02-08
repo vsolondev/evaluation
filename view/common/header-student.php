@@ -8,7 +8,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap.min.css'); ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/dataTables.bootstrap4.min.css'); ?>">
 
     <title>Hello, world!</title>
 
