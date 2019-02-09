@@ -71,7 +71,7 @@
                                                 <h6>` + row.ScheduleDay + `</h6>
                                                 <h6>` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</h6>
                                                 <h5>` + teacherScore + ` / ` + maximumScore + ` points</h5>
-                                                <h5>` + (teacherScore / maximumScore).toFixed(2) + `% over 100%</h5> 
+                                                <h5>` + ((teacherScore / maximumScore) * 100).toFixed(2) + `% over 100%</h5> 
                                             </div>`;
 
                                     $('#subjects-wrapper').html(html);
