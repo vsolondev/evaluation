@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/dataTables.bootstrap4.min.css'); ?>">
 
-    <title>Hello, world!</title>
+    <title>Evaluation System</title>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -51,6 +51,9 @@
               <a class="dropdown-item" href="<?php echo base_url('view/rating/index.php'); ?>">Rating</a>
               <a class="dropdown-item" href="<?php echo base_url('view/evaluation_schedule/index.php'); ?>">Evaluation Schedule</a>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url('view/report/index.php'); ?>">View Evaluation Report</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">

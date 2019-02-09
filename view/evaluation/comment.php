@@ -10,6 +10,7 @@
         float: left;
         text-align: center;
         margin: 1rem;
+        width: 250px;
     }
 
     textarea {
@@ -18,13 +19,17 @@
     }
 </style>
 
-<?php echo $_SESSION['studentid']; ?>
-
-<h6 class="text-center">Comment</h6>
-<form id="teachers-evaluation-form" class="d-flex justify-content-center"></form>
-
-<div class="text-center">
-    <button type="button" id="btn-save">Save</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h5 class="text-center mt-4 mb-4">Teacher Evaluation Comment</h5>
+            <form id="teachers-evaluation-form" class="d-flex justify-content-center"></form>
+            
+            <div class="text-center">
+                <button type="button" id="btn-save" class="btn btn-primary">Save Comments</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -46,11 +51,11 @@
                                     data-evaluationid="` + row.EvaluationId + `"
                                     data-teacherid="` + row.TeacherId + `"
                                 >
-                                    <img alt="teacher-image" />
-                                    <h6>` + row.LastName + `, ` + row.FirstName + ` ` + row.MiddleName + `</h6>
-                                    <p>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</p>
-                                    <p>` + row.SectionName + `</p>
-                                    <div class="comment-box">
+                                    <h6 class="mb-3">` + row.FirstName + ` ` + row.MiddleName + ` ` + row.LastName + `</h6>
+                                    <p class="mb-0">` + row.ScheduleDay + `</p>
+                                    <p class="mb-0">` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</p>
+                                    <p class="mb-0">` + row.SectionName + `</p>
+                                    <div class="comment-box mt-3">
                                         <h6>Good Comment</h6>
                                         <textarea id="good-comment-` + row.EvaluationId + `">` + row.GoodComment + `</textarea>
                                         <br />

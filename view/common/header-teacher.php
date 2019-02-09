@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap.min.css'); ?>">
 
-    <title>Hello, world!</title>
+    <title>Evaluation System</title>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

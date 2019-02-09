@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap.min.css'); ?>">
 
-    <title>Hello, world!</title>
+    <title>Evaluation System</title>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -28,7 +28,7 @@
 
       <div class="collapse navbar-collapse" id="navbar-toggler">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="<?php echo base_url('view/student/home.php'); ?>">Evaluate</a>
           </li>
         </ul>

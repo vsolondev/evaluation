@@ -15,18 +15,30 @@
     #btn-save {
         display: none;
     }
+
+    label {
+        width: 100px;
+        text-align: left;
+        padding-left: 1rem;
+    }
 </style>
 
-<?php echo $_SESSION['studentid']; ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h5 id="question" class="text-center mt-4 mb-4"></h5>
 
-<h5 id="question" class="text-center"></h5>
-<form id="teachers-evaluation-form" class="d-flex justify-content-center"></form>
+            <form id="teachers-evaluation-form" class="d-flex justify-content-center"></form>
 
-<div class="text-center">
-    <button type="button" id="btn-previous">Previous</button>
-    <button type="button" id="btn-next">Next</button>
-    <button type="button" id="btn-save">Save</button>
+            <div class="text-center">
+                <button type="button" id="btn-previous" class="btn btn-primary">Previous</button>
+                <button type="button" id="btn-next" class="btn btn-primary">Next</button>
+                <button type="button" id="btn-save" class="btn btn-secondary">Save</button>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script>
     $(document).ready(function() {
@@ -81,11 +93,11 @@
                                     data-evaluationid="` + row.EvaluationId + `"
                                     data-teacherid="` + row.TeacherId + `"
                                 >
-                                    <img alt="teacher-image" />
-                                    <h6>` + row.LastName + `, ` + row.FirstName + ` ` + row.MiddleName + `</h6>
-                                    <p>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</p>
-                                    <p>` + row.SectionName + `</p>
-                                    <div class="rating-box">
+                                    <h6 class="mb-3">` + row.FirstName + ` ` + row.MiddleName + ` ` + row.LastName + `</h6>
+                                    <p class="mb-0">` + row.ScheduleDay + `</p>
+                                    <p class="mb-0">` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</p>
+                                    <p class="mb-0">` + row.SectionName + `</p>
+                                    <div class="rating-box mt-3">
                                         `+ generateRatingRadioButtons(row.EvaluationId) +`
                                     </div>
                                 </div>`;

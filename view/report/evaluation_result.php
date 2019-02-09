@@ -12,10 +12,17 @@
     }
 </style>
 
-<h6 class="text-center">Teacher Evaluation Result By Subjects Handled</h6>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h5 class="text-center mt-4 mb-4">Teacher Evaluation Result By Subjects Handled</h5>
+            <h5 id="teacher-wrapper" class="text-center"></h5>
 
-<h6 id="teacher-wrapper" class="text-center"></h6>
-<div id="subjects-wrapper" class="d-flex justify-content-center">
+            <div id="subjects-wrapper" class="d-flex justify-content-center">
+        </div>
+    </div>
+</div>
+
 </div>
 
 <script>
@@ -61,13 +68,10 @@
                                     html += `<div class="subject-box">
                                                 <h6>` + row.SectionName + `</h6>
                                                 <h6>` + row.SubjectAcronym + `</h6>
-                                                <h6>` + row.ScheduleDay + ` ` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</h6>
-                                                <h6>` + teacherScore + ` / ` + maximumScore + `</h6>
-                                                <h6>` + (teacherScore / maximumScore).toFixed(2) + `% over 100%</h6>
-                                                <a 
-                                                    class="btn btn-primary"
-                                                    href="` + '<?php echo base_url("view/report/evaluation_result_detail.php?sectionsubjectscheduleid=' + row.SectionSubjectScheduleId + '"); ?>' + `"
-                                                >More Details</a>
+                                                <h6>` + row.ScheduleDay + `</h6>
+                                                <h6>` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</h6>
+                                                <h5>` + teacherScore + ` / ` + maximumScore + ` points</h5>
+                                                <h5>` + (teacherScore / maximumScore).toFixed(2) + `% over 100%</h5> 
                                             </div>`;
 
                                     $('#subjects-wrapper').html(html);

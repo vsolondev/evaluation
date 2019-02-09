@@ -9,12 +9,20 @@
         float: left;
         text-align: center;
         margin: 1rem;
+        width: 250px;
     }
 </style>
 
-<h6 class="text-center">REPORT</h6>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="text-center mt-4 mb-5">EVALUATION REPORT</h3>
 
-<div id="teachers-wrapper" class="d-flex justify-content-center">
+            <h5 class="mb-1 text-center">Lists of Teachers</h5>
+            <div id="teachers-wrapper" class="d-flex justify-content-center">
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -34,10 +42,9 @@
                         html += `<div 
                                     class="teacher-box"
                                 >
-                                    <img alt="teacher-image" />
-                                    <h6>` + row.LastName + `, ` + row.FirstName + ` ` + row.MiddleName + `</h6>
+                                    <h6>` + row.FirstName + ` ` + row.MiddleName + ` ` + row.LastName + `</h6>
                                     <a 
-                                        class="btn btn-primary"
+                                        class="btn btn-primary btn-sm"
                                         href="` + '<?php echo base_url("view/report/evaluation_result.php?teacherid=' + row.TeacherId + '"); ?>' + `"
                                     >View Evaluation Results</a>
                                 </div>`;
