@@ -11,9 +11,9 @@ $param = [
 ];
 
 $query = $conn->prepare(
-    'SELECT * FROM student_account
-	INNER JOIN account ON account.AccountId = student_account.AccountId
-	INNER JOIN student ON student.StudentId = student_account.StudentId
+    'SELECT * FROM admin_account
+	INNER JOIN account ON account.AccountId = admin_account.AccountId
+	INNER JOIN admin ON admin.AdminId = admin_account.AdminId
     WHERE Username = :Username AND
     Password = :Password'
 );
@@ -26,8 +26,8 @@ if ($count == 1) {
 
     session_start();
     session_unset();
-    $_SESSION['studentid'] = $query->fetch()['StudentId'];
-    $_SESSION['role'] = 'STUDENT';
+    $_SESSION['adminid'] = $query->fetch()['AdminId'];
+    $_SESSION['role'] = 'ADMIN';
 }
 
 echo json_encode($returnData);
