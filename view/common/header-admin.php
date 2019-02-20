@@ -49,7 +49,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="<?php echo base_url('view/question/index.php'); ?>">Question</a>
               <a class="dropdown-item" href="<?php echo base_url('view/rating/index.php'); ?>">Rating</a>
-              <a class="dropdown-item" href="<?php echo base_url('view/evaluation_schedule/index.php'); ?>">Evaluation Schedule</a>
+              <!-- <a class="dropdown-item" href="<?php echo base_url('view/evaluation_schedule/index.php'); ?>">Evaluation Schedule</a> -->
             </div>
           </li>
           <li class="nav-item">
