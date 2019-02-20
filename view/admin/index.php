@@ -99,6 +99,23 @@
             $('#middlename').val($(this).attr('data-middlename'));
         });
 
+        /* 
+        DELETE CODE
+        $('#table-admin').on('click', '.btn-delete', function() {
+            var adminId = $(this).attr('data-admin-id');
+
+            $.ajax({
+                url: '<?php echo base_url('queries/deleteAdmin.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'adminid' , value : adminId }],
+                success: function(result) {
+                    getAllAdmin();
+                    clearForm();
+                }
+            });
+        }); */
+
         $('#btn-update').click(function() {
             $.ajax({
                 url: '<?php echo base_url('queries/updateAdmin.php'); ?>',
@@ -143,6 +160,11 @@
                                             data-lastname="` + row.LastName + `"
                                             data-middlename="` + row.MiddleName + `"
                                         >Edit</button>
+                                        <button
+                                            class="btn-delete btn btn-danger btn-sm"
+                                            data-admin-id="` + row.AdminId + `"
+                                            hidden
+                                        >Delete</button>
                                     </td>
                                 </tr>`;
                     });

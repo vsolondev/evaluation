@@ -163,6 +163,24 @@
             $('#courseid').val($(this).attr('data-courseid'));
         });
 
+        /* 
+        DELETE CODE 
+
+        $('#table-student').on('click', '.btn-delete', function() {
+            var studentId = $(this).attr('data-studentid');
+
+            $.ajax({
+                url: '<?php echo base_url('queries/deleteStudent.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'studentid' , value : studentId }],
+                success: function(result) {
+                    getAllStudent();
+                    clearForm();
+                }
+            });
+        }); */
+
         $('#btn-update').click(function() {
             $.ajax({
                 url: '<?php echo base_url('queries/updateStudent.php'); ?>',
@@ -218,6 +236,11 @@
                                             data-toggle="modal"
                                             data-studentid="` + row.StudentId + `"
                                         >Edit Section/Subject</button>
+                                        <button 
+                                            class="btn-delete btn btn-danger btn-sm" 
+                                            data-studentid="` + row.StudentId + `"
+                                            hidden
+                                        >Delete</button>
                                     </td>
                                 </tr>`;
                     });
