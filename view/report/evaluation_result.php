@@ -72,6 +72,11 @@
                                                 <h6>` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</h6>
                                                 <h5>` + teacherScore + ` / ` + maximumScore + ` points</h5>
                                                 <h5>` + ((teacherScore / maximumScore) * 100).toFixed(2) + `% over 100%</h5> 
+                                                <br />
+                                                <button 
+                                                    data-sssid="` + row.SectionSubjectScheduleId + `"
+                                                    class="btn-view-comments btn btn-primary btn-sm"
+                                                >View Comments</button>
                                             </div>`;
 
                                     $('#subjects-wrapper').html(html);
@@ -124,6 +129,12 @@
                 }
             });
         }
+
+        $('#subjects-wrapper').on('click', '.btn-view-comments', function() {
+            var sssId = $(this).attr('data-sssid');
+
+            window.location.href = '<?php echo base_url('view/report/evaluation_comments.php'); ?>?sssid=' + sssId + '&teacherid=' + teacherId;
+        });
     });
 </script>
 
