@@ -6,12 +6,12 @@
         height: 100%;
     }
 
-    #form-login label {
+    #form-forgot label {
         display: inline-block;
         width: 100px;
     }
 
-    #form-login input {
+    #form-forgot input {
         display: inline-block;
         padding: 4px 5px;
         border: 1px solid;
@@ -26,21 +26,21 @@
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-12 d-flex justify-content-center align-items-center h-100">
-
-            <form id="form-login">
-                <h1 class="text-center mb-3 text-center">LOGIN</h1>
+            
+            <form id="form-forgot">
+                <h1 class="text-center mb-3 text-center">Forgot Password</h1>
                 <label for="username">Username: </label>
                 <input type="text" name="username" id="username" placeholder="username" require>
                 <br>
-                <label for="password" class="mt-2">Password: </label>
-                <input type="password" name="password" id="password" placeholder="password" require>
+                <label for="pin" class="mt-2">Pin: </label>
+                <input type="text" name="pin" id="pin" placeholder="Pin" require>
                 <br>
                 <div class="row mt-2 text-center">
                     <div class="col-6">
-                        <a href="<?php echo base_url('view/teacher/forgot.php'); ?>" class="btn btn-secondary">Forgot Password?</a>
+                        <a href="<?php echo base_url('view/admin/login.php'); ?>" class="btn btn-secondary">Back to Login</a>
                     </div>
                     <div class="col-6">
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Retrieve</button>
                     </div>
                 </div>
             </form>
@@ -51,23 +51,23 @@
 
 <script>
     $(document).ready(function() {
-        $('#form-login').submit(function(e) {
+        $('#form-forgot').submit(function(e) {
             e.preventDefault();
 
-            login();
+            getPassword();
         });
 
-        function login() {
+        function getPassword() {
             $.ajax({
-                url: '<?php echo base_url('queries/loginTeacher.php'); ?>',
+                url: '<?php echo base_url('queries/getPassword.php'); ?>',
                 type: 'post',
                 dataType: 'json',
-                data: $('#form-login').serializeArray(),
+                data: $('#form-forgot').serializeArray(),
                 success: function(result) {
                     if (result.success === true) {
-                        window.location.href = '<?php echo base_url('view/teacher/home.php'); ?>';
+                        alert("Your password is : " + result.password);
                     } else {
-                        alert("Invalid username or password");
+                        alert("Username or Pin does not match");
                     }
                 }
             });

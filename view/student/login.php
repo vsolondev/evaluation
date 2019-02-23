@@ -37,7 +37,7 @@
                 <br>
                 <div class="row mt-2 text-center">
                     <div class="col-6">
-                        <a href="#" class="btn btn-secondary">Forgot Password?</a>
+                        <a href="<?php echo base_url('view/student/forgot.php'); ?>" class="btn btn-secondary">Forgot Password?</a>
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-primary">Login</button>
