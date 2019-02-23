@@ -12,7 +12,8 @@ $param = [
 
 $param3 = [
     ':AccountId' => 0,
-    ':Pin' => $_POST['pin']
+    ':Pin' => $_POST['pin'],
+    ':Password' => $_POST['password']
 ];
 
 $returnData = [
@@ -28,7 +29,7 @@ $query2->execute();
 // Store AccountId to param3
 $param3[':AccountId'] = $query2->fetch()['AccountId'];
 
-$query3 = $conn->prepare('UPDATE account SET Pin = :Pin WHERE AccountId = :AccountId');
+$query3 = $conn->prepare('UPDATE account SET Pin = :Pin, Password = :Password WHERE AccountId = :AccountId');
 
 if ( $query->execute($param) && $query3->execute($param3) ) {
     $returnData['success'] = true;

@@ -32,6 +32,12 @@
                         <label for="pin">Pin: </label>
                         <input type="text" id="pin" name="pin" placeholder="Pin">
                         <br>
+                        <br>
+                        <h6>If you want to change your password.</h6>
+                        <h6>Just Change the characters below.</h6>
+                        <label for="password">Password: </label>
+                        <input type="text" id="password" name="password" placeholder="Password">
+                        <br>
                         <button type="button" id="btn-save" class="btn btn-primary btn-sm">Save</button>
                     </div>
                 </div>
@@ -66,6 +72,7 @@
                     $("#lastname").val(myAccountData.LastName);
                     $("#middlename").val(myAccountData.MiddleName);
                     $("#pin").val(myAccountData.Pin);
+                    $("#password").val(myAccountData.Password);
                 }
             });
         }
