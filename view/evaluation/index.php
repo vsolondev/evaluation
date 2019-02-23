@@ -35,6 +35,9 @@
                 <button type="button" id="btn-next" class="btn btn-primary">Next</button>
                 <button type="button" id="btn-save" class="btn btn-secondary">Save</button>
             </div>
+            <div class="text-center">
+                <a href="<?php echo base_url('view/evaluation/comment.php'); ?>" class="btn btn-secondary mt-4">Goto Comments</a>
+            </div>
         </div>
     </div>
 </div>

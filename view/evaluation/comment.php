@@ -26,6 +26,7 @@
             <form id="teachers-evaluation-form" class="d-flex justify-content-center"></form>
             
             <div class="text-center">
+                <a href="<?php echo base_url('view/evaluation/index.php?questionid=1'); ?>" class="btn btn-secondary">Back to Evaluation</a>
                 <button type="button" id="btn-save" class="btn btn-primary">Save Comments</button>
             </div>
         </div>

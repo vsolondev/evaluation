@@ -66,6 +66,8 @@
                 success: function(result) {
                     if (result.success === true) {
                         window.location.href = '<?php echo base_url('view/student/home.php'); ?>';
+                    } else {
+                        alert("Invalid username or password");
                     }
                 }
             });
