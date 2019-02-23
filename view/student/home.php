@@ -1,5 +1,5 @@
 <?php require_once '../common/header-student.php'; ?>
-<?php session_start(); ?>
+<?php if (session_status() == PHP_SESSION_NONE) { session_start(); } ?>
 
 <div class="container-fluid">
     <div class="row mt-4 mb-5">

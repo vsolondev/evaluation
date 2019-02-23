@@ -1,4 +1,6 @@
 <?php require_once '../../global.php'; ?>
+<?php is_student(); ?>
+
 <!doctype html>
 <html lang="en">
   <head>

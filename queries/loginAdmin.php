@@ -24,7 +24,9 @@ $count = $query->rowCount();
 if ($count == 1) {
     $returnData['success'] = true;
 
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     session_unset();
     $_SESSION['adminid'] = $query->fetch()['AdminId'];
     $_SESSION['role'] = 'ADMIN';

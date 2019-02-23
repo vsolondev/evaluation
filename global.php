@@ -5,7 +5,9 @@ function base_url($url = '') {
 }
 
 function is_student() {
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     $role = $_SESSION['role'];
 
@@ -16,7 +18,9 @@ function is_student() {
 }
 
 function is_teacher() {
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     $role = $_SESSION['role'];
 
@@ -27,7 +31,9 @@ function is_teacher() {
 }
 
 function is_admin() {
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     $role = $_SESSION['role'];
 

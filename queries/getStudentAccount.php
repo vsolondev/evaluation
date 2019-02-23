@@ -1,7 +1,9 @@
 <?php
 require_once '../connection.php';
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 $param = [
     ':StudentId' => $_SESSION['studentid']

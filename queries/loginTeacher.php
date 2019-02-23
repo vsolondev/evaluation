@@ -24,7 +24,9 @@ $count = $query->rowCount();
 if ($count == 1) {
     $returnData['success'] = true;
 
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     session_unset();
     $_SESSION['teacherid'] = $query->fetch()['TeacherId'];
     $_SESSION['role'] = 'TEACHER';

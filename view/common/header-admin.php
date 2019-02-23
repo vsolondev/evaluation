@@ -1,4 +1,6 @@
 <?php require_once '../../global.php'; ?>
+<?php is_admin(); ?>
+
 <!doctype html>
 <html lang="en">
   <head>
