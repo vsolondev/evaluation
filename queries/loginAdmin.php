@@ -28,7 +28,10 @@ if ($count == 1) {
         session_start();
     }
     session_unset();
-    $_SESSION['adminid'] = $query->fetch()['AdminId'];
+    
+    $data = $query->fetch();
+    $_SESSION['accountid'] = $data['AccountId'];
+    $_SESSION['adminid'] = $data['AdminId'];
     $_SESSION['role'] = 'ADMIN';
 }
 

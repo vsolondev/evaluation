@@ -28,7 +28,10 @@ if ($count == 1) {
         session_start();
     }
     session_unset();
-    $_SESSION['studentid'] = $query->fetch()['StudentId'];
+
+    $data = $query->fetch();
+    $_SESSION['accountid'] = $data['AccountId'];
+    $_SESSION['studentid'] = $data['StudentId'];
     $_SESSION['role'] = 'STUDENT';
 }
 

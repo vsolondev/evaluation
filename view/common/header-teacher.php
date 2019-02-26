@@ -31,7 +31,7 @@
       <div class="collapse navbar-collapse" id="navbar-toggler">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a href="<?php echo base_url('view/'); ?>">My Evaluation Results</a>
+            <a class="nav-link" href="<?php echo base_url('view/teacher/evaluation_result.php'); ?>">My Evaluation Results</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">

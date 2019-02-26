@@ -12,11 +12,27 @@
         padding: 4px 8px;
         width: 200px;
     }
+
+    #image {
+        width: 250px;
+        height: auto;
+        display: block;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        margin-left: 30px;
+    }
 </style>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
+            <img src="#" id="image">
+            <form action="form-image">
+                <label for="imagefile">Image File: </label>
+                <input type="file" name="imagefile" id="imagefile" accept=".jpg,.jpeg,.gif,.png">
+                <div>Allowed File Type : .jpeg, .jpg, .png, .gif</div>
+            </form>
+
             <form id="form-account">
                 <div class="row mt-4 mb-5">
                     <div class="col-12">
@@ -56,6 +72,21 @@
                 dataType: 'json',
                 data: $('#form-account').serializeArray()
             });
+
+            var formData = new FormData();
+            formData.append('file', $('#imagefile')[0].files[0]);
+
+            $.ajax({
+                url: '<?php echo base_url('queries/uploadImage.php'); ?>',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                cache: false,
+                data: formData,
+                success: function(result) {
+                    getImage();
+                }
+            });
         });
 
         getAccount();
@@ -73,6 +104,19 @@
                     $("#middlename").val(myAccountData.MiddleName);
                     $("#pin").val(myAccountData.Pin);
                     $("#password").val(myAccountData.Password);
+                }
+            });
+        }
+
+        getImage();
+
+        function getImage() {
+            $.ajax({
+                url: '<?php echo base_url('queries/getImageByAccountId.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                success: function(result) {
+                    $('#image').attr('src', result.image);
                 }
             });
         }

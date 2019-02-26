@@ -28,7 +28,10 @@ if ($count == 1) {
         session_start();
     }
     session_unset();
-    $_SESSION['teacherid'] = $query->fetch()['TeacherId'];
+
+    $data = $query->fetch();
+    $_SESSION['accountid'] = $data['AccountId'];
+    $_SESSION['teacherid'] = $data['TeacherId'];
     $_SESSION['role'] = 'TEACHER';
 }
 
