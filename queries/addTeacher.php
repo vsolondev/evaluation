@@ -30,11 +30,14 @@ $teacher_account[':TeacherId'] = $conn->lastInsertId();
 
 $query = $conn->prepare('INSERT INTO account (Username, Password, Pin, IsLocked) VALUES (:Username, :Password, :Pin, :IsLocked)');
 $query->execute($account);
+
+// Get ID of the last created account
 $teacher_account[':AccountId'] = $conn->lastInsertId();
 
 $query = $conn->prepare('INSERT INTO teacher_account (TeacherId, AccountId) VALUES (:TeacherId, :AccountId)');
 if ($query->execute($teacher_account)) {
     $returnData['success'] = true;
+    $returnData['accountid'] = $teacher_account[':AccountId'];
 }
 
 echo json_encode($returnData);

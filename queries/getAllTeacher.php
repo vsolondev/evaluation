@@ -7,7 +7,10 @@ $returnData = [
 ];
 
 $query = $conn->prepare(
-    'SELECT * FROM teacher INNER JOIN department ON teacher.DepartmentId = department.DepartmentId'
+    'SELECT * FROM teacher 
+    INNER JOIN department ON teacher.DepartmentId = department.DepartmentId
+    INNER JOIN teacher_account ON teacher_account.TeacherId = teacher.TeacherId
+    INNER JOIN account ON account.AccountId = teacher_account.AccountId'
 );
 
 if ($query->execute()) {

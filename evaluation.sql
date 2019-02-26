@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2019 at 12:56 PM
+-- Generation Time: Feb 26, 2019 at 03:48 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -41,17 +41,40 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`AccountId`, `Username`, `Password`, `Pin`, `IsLocked`) VALUES
-(1, 'admin1', 'admin1', 123, 0),
-(2, 'teacher1', 'teacher1', 123, 0),
-(3, '', '', 0, 0),
-(4, 'teacher3', 'teacher3', 123, 0),
-(5, 'teacher4', 'teacher4', 123, 0),
-(6, 'teacher5', 'teacher5', 123, 0),
-(7, 'student1', 'student1', 123, 0),
-(8, 'student2', 'student2', 123, 0),
-(9, 'student3', 'student3', 123, 0),
-(10, 'student4', 'student4', 123, 0),
-(11, 'student5', 'student5', 123, 0);
+(1, 'admin1', 'admin1', 123456, 0),
+(2, 'teacher1', 'teacher1', 123456, 0),
+(3, 'teacher2', 'teacher2', 123456, 0),
+(4, 'teacher3', 'teacher3', 123456, 0),
+(5, 'teacher4', 'teacher4', 123456, 0),
+(6, 'teacher5', 'teacher5', 123456, 0),
+(7, 'student1', 'student1', 123456, 0),
+(8, 'student2', 'student2', 123456, 0),
+(9, 'student3', 'student3', 123456, 0),
+(10, 'student4', 'student4', 123456, 0),
+(11, 'student5', 'student5', 123456, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accountimage`
+--
+
+CREATE TABLE `accountimage` (
+  `AccountId` int(11) NOT NULL,
+  `ImageName` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accountimage`
+--
+
+INSERT INTO `accountimage` (`AccountId`, `ImageName`) VALUES
+(1, '1897552846.jpg'),
+(3, '2012850292.jpg'),
+(2, '1053925961.jpg'),
+(5, '458852202.jpg'),
+(4, '831346562.jpg'),
+(6, '552076826.jpg');
 
 -- --------------------------------------------------------
 
@@ -71,7 +94,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`AdminId`, `FirstName`, `LastName`, `MiddleName`) VALUES
-(1, 'juan', 'dela cruz', 'chicharon');
+(1, 'Admin1', 'Admin1', 'Admin1');
 
 -- --------------------------------------------------------
 
@@ -155,18 +178,11 @@ CREATE TABLE `evaluation` (
 --
 
 INSERT INTO `evaluation` (`EvaluationId`, `StudentId`, `TeacherId`, `EvaluationScheduleId`, `BadComment`, `GoodComment`) VALUES
-(1, 1, 1, 3, 'bad comment 1', 'good comment 1'),
-(2, 1, 2, 3, 'bad comment 2', 'good comment 2'),
-(3, 1, 4, 3, 'bad comment 3', 'good comment 3'),
-(4, 1, 5, 3, 'bad comment 4', 'good comment 4'),
-(5, 2, 1, 3, 'student2 badcomment', 'student2 good comment'),
-(6, 2, 2, 3, 'student2 badcomment', 'student2 good comment'),
-(7, 2, 4, 3, 'student2 badcomment', 'student2 good comment'),
-(8, 2, 5, 3, 'student2 badcomment', 'student2 good comment'),
-(9, 3, 1, 3, '', ''),
-(10, 3, 2, 3, '', ''),
-(11, 3, 4, 3, '', ''),
-(12, 3, 5, 3, '', '');
+(1, 1, 1, 3, '', ''),
+(2, 1, 2, 3, '', ''),
+(3, 1, 3, 3, '', ''),
+(4, 1, 4, 3, '', ''),
+(5, 1, 5, 3, '', '');
 
 -- --------------------------------------------------------
 
@@ -189,6 +205,19 @@ INSERT INTO `evaluation_schedule` (`EvaluationScheduleId`, `ScheduleDateFrom`, `
 (1, '2018-12-24', '2018-12-24', 0),
 (2, '2018-12-25', '2018-12-25', 0),
 (3, '2018-12-26', '2018-12-26', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `person`
+--
+
+CREATE TABLE `person` (
+  `PersonId` int(11) NOT NULL,
+  `FirstName` varchar(50) NOT NULL,
+  `LastName` varchar(50) NOT NULL,
+  `Age` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -302,10 +331,16 @@ CREATE TABLE `section_subject_schedule` (
 --
 
 INSERT INTO `section_subject_schedule` (`SectionSubjectScheduleId`, `SectionId`, `SubjectId`, `ScheduleId`, `TeacherId`) VALUES
-(1, 1, 4, 1, 1),
-(2, 1, 1, 2, 2),
+(1, 1, 1, 1, 1),
+(2, 1, 2, 2, 3),
 (3, 1, 3, 3, 4),
-(4, 1, 5, 4, 5);
+(4, 1, 4, 4, 2),
+(5, 1, 5, 5, 5),
+(6, 2, 1, 5, 1),
+(7, 2, 2, 4, 3),
+(8, 2, 3, 3, 4),
+(9, 2, 4, 2, 2),
+(10, 2, 5, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -329,11 +364,11 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`StudentId`, `IdNumber`, `FirstName`, `LastName`, `MiddleName`, `YearLevelId`, `DepartmentId`, `CourseId`) VALUES
-(1, '', 'student1', 'IT', '', 1, 1, 1),
-(2, '', 'student2', 'IT', '', 1, 1, 1),
-(3, '', 'student3', 'IT', '', 1, 1, 1),
-(4, '', 'student4', 'IT', '', 1, 1, 1),
-(5, '', 'student5', 'IT', '', 1, 1, 1);
+(1, '', 'student1', 'student1', 'student1', 1, 1, 1),
+(2, '', 'student2', 'student2', 'student2', 1, 1, 1),
+(3, '', 'student3', 'student3', 'student3', 1, 1, 1),
+(4, '', 'student4', 'student4', 'student4', 1, 1, 1),
+(5, '', 'student5', 'student5', 'student5', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -379,14 +414,27 @@ INSERT INTO `student_sss` (`StudentSectionId`, `StudentId`, `SectionSubjectSched
 (2, 1, 2),
 (3, 1, 3),
 (4, 1, 4),
-(5, 2, 1),
-(6, 2, 2),
-(7, 2, 3),
-(8, 2, 4),
-(9, 3, 1),
-(10, 3, 2),
-(11, 3, 3),
-(12, 3, 4);
+(5, 1, 5),
+(6, 2, 1),
+(7, 2, 2),
+(8, 2, 3),
+(9, 2, 4),
+(10, 2, 5),
+(11, 3, 1),
+(12, 3, 2),
+(13, 3, 3),
+(14, 3, 4),
+(15, 3, 5),
+(16, 4, 1),
+(17, 4, 2),
+(18, 4, 3),
+(19, 4, 4),
+(20, 4, 5),
+(21, 5, 1),
+(22, 5, 2),
+(23, 5, 3),
+(24, 5, 4),
+(25, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -400,52 +448,6 @@ CREATE TABLE `student_teacher_rating` (
   `QuestionId` int(11) NOT NULL,
   `RatingId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `student_teacher_rating`
---
-
-INSERT INTO `student_teacher_rating` (`StudentTeacherRatingId`, `EvaluationId`, `QuestionId`, `RatingId`) VALUES
-(1, 1, 1, 5),
-(2, 2, 1, 5),
-(3, 3, 1, 5),
-(4, 4, 1, 5),
-(5, 1, 2, 4),
-(6, 2, 2, 4),
-(7, 3, 2, 4),
-(8, 4, 2, 4),
-(9, 1, 3, 3),
-(10, 2, 3, 3),
-(11, 3, 3, 3),
-(12, 4, 3, 3),
-(13, 1, 4, 2),
-(14, 2, 4, 2),
-(15, 3, 4, 2),
-(16, 4, 4, 2),
-(17, 1, 5, 1),
-(18, 2, 5, 1),
-(19, 3, 5, 1),
-(20, 4, 5, 1),
-(21, 5, 1, 5),
-(22, 6, 1, 5),
-(23, 7, 1, 5),
-(24, 8, 1, 5),
-(25, 5, 2, 5),
-(26, 6, 2, 5),
-(27, 7, 2, 5),
-(28, 8, 2, 5),
-(29, 5, 3, 5),
-(30, 6, 3, 5),
-(31, 7, 3, 5),
-(32, 8, 3, 5),
-(33, 5, 4, 5),
-(34, 6, 4, 5),
-(35, 7, 4, 5),
-(36, 8, 4, 5),
-(37, 5, 5, 5),
-(38, 6, 5, 5),
-(39, 7, 5, 5),
-(40, 8, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -490,11 +492,11 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`TeacherId`, `IdNumber`, `FirstName`, `LastName`, `MiddleName`, `DepartmentId`) VALUES
-(1, '', 'teacher', 'programming1', 'gwapa', 1),
-(2, '', 'teacher', 'programming2', 'gwapa', 1),
-(3, '', 'teacher', 'database', 'gwapa', 1),
-(4, '', 'teacher', 'songeng', 'gwapa', 1),
-(5, '', 'teacher', 'webdev', 'gwapa', 1);
+(1, '', 'teacher1', 'teacher1', 'teacher1', 1),
+(2, '', 'teacher2', 'teacher2', 'teacher2', 1),
+(3, '', 'teacher3', 'teacher3', 'teacher3', 1),
+(4, '', 'teacher4', 'teacher4', 'teacher4', 1),
+(5, '', 'teacher5', 'teacher5', 'teacher5', 1);
 
 -- --------------------------------------------------------
 
@@ -585,6 +587,12 @@ ALTER TABLE `evaluation`
 --
 ALTER TABLE `evaluation_schedule`
   ADD PRIMARY KEY (`EvaluationScheduleId`);
+
+--
+-- Indexes for table `person`
+--
+ALTER TABLE `person`
+  ADD PRIMARY KEY (`PersonId`);
 
 --
 -- Indexes for table `question`
@@ -702,13 +710,19 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `EvaluationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `EvaluationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `evaluation_schedule`
 --
 ALTER TABLE `evaluation_schedule`
   MODIFY `EvaluationScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `person`
+--
+ALTER TABLE `person`
+  MODIFY `PersonId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `question`
@@ -738,7 +752,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `section_subject_schedule`
 --
 ALTER TABLE `section_subject_schedule`
-  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SectionSubjectScheduleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -756,13 +770,13 @@ ALTER TABLE `student_account`
 -- AUTO_INCREMENT for table `student_sss`
 --
 ALTER TABLE `student_sss`
-  MODIFY `StudentSectionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `StudentSectionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `student_teacher_rating`
 --
 ALTER TABLE `student_teacher_rating`
-  MODIFY `StudentTeacherRatingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `StudentTeacherRatingId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subject`

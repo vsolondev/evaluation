@@ -6,8 +6,16 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+$accountId = 0;
+
+if (isset($_POST['accountid'])) {
+    $accountId = $_POST['accountid'];
+} else {
+    $accountId = $_SESSION['accountid'];
+}
+
 $param = [
-    ':AccountId' => $_SESSION['accountid']
+    ':AccountId' => $accountId
 ];
 
 $returnData = [

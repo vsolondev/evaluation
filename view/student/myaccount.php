@@ -14,12 +14,14 @@
     }
 
     #image {
-        width: 250px;
+        width: 150px;
         height: auto;
+        min-height: 150px;
         display: block;
         margin-top: 30px;
         margin-bottom: 30px;
         margin-left: 30px;
+        border: 1px solid;
     }
 </style>
 

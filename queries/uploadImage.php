@@ -9,6 +9,14 @@ $returnData = [
     'success' => false
 ];
 
+$accountId = 0;
+
+if (isset($_POST['accountid'])) {
+    $accountId = $_POST['accountid'];
+} else {
+    $accountId = $_SESSION['accountid'];
+}
+
 // Get files
 $imageName = $_FILES['file']['name'];
 
@@ -28,7 +36,7 @@ if (move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
     // If it has uploaded, just update the ImageName
     // else insert new record
     $getAccountImageParam = [
-        ':AccountId' => $_SESSION['accountid']
+        ':AccountId' => $accountId
     ];
 
     $getAccountImageQuery = $conn->prepare('SELECT * FROM accountimage WHERE AccountId = :AccountId');
@@ -37,7 +45,7 @@ if (move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
 
 
     $accountImageParam = [
-        ':AccountId' => $_SESSION['accountid'],
+        ':AccountId' => $accountId,
         ':ImageName' => $newImageName
     ];
     

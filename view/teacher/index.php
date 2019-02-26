@@ -12,11 +12,30 @@
         padding: 4px 8px;
         width: 200px;
     }
+
+    #image {
+        width: 150px;
+        height: auto;
+        min-height: 150px;
+        display: block;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        border: 1px solid;
+    }
 </style>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 col-md-3">
+            <img src="#" id="image">
+            <form action="form-image">
+                <label for="imagefile">Image File: </label>
+                <input type="text" name="accountid" id="accountid" hidden>
+                <input type="file" name="imagefile" id="imagefile" accept=".jpg,.jpeg,.gif,.png">
+                <div>Allowed File Type : .jpeg, .jpg, .png, .gif</div>
+            </form>
+        </div>
+        <div class="col-12 col-md-9">
             <form id="form-teacher">
                 <input type="text" id="teacherid" name="teacherid" placeholder="teacherid" hidden>
 
@@ -58,7 +77,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-12">
             <div class="table-responsive">
                 <table id="table-teacher" class="table table-striped table-sm table-borderless nowrap">
@@ -139,6 +158,22 @@
                 dataType: 'json',
                 data: $('#form-teacher').serializeArray(),
                 success: function(result) {
+                    // Upload image starts here
+                    var formData = new FormData();
+                    formData.append('file', $('#imagefile')[0].files[0]);
+
+                    // The account id is from the latest created account see addTeacher.php
+                    formData.append('accountid', result.accountid);
+
+                    $.ajax({
+                        url: '<?php echo base_url('queries/uploadImage.php'); ?>',
+                        type: 'POST',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        data: formData
+                    });
+                    
                     getAllTeacher();
                     clearForm();
                 }
@@ -146,6 +181,9 @@
         });
 
         $('#table-teacher').on('click', '.btn-edit', function() {
+            $('#accountid').val($(this).attr('data-accountid'));
+            getImageByAccountId($(this).attr('data-accountid'));
+
             $('#teacherid').val($(this).attr('data-teacherid'));
             $('#firstname').val($(this).attr('data-firstname'));
             $('#lastname').val($(this).attr('data-lastname'));
@@ -160,6 +198,22 @@
                 dataType: 'json',
                 data: $('#form-teacher').serializeArray(),
                 success: function(result) {
+                    // Update image starts here
+                    var formData = new FormData();
+                    formData.append('file', $('#imagefile')[0].files[0]);
+
+                    // The account id is from the #accountid hidden input
+                    formData.append('accountid', $('#accountid').val());
+
+                    $.ajax({
+                        url: '<?php echo base_url('queries/uploadImage.php'); ?>',
+                        type: 'POST',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        data: formData
+                    });
+                    
                     getAllTeacher();
                     clearForm();
                 }
@@ -193,6 +247,7 @@
                                     <td>
                                         <button 
                                             class="btn-edit btn btn-primary btn-sm"
+                                            data-accountid="` + row.AccountId + `"
                                             data-teacherid="` + row.TeacherId + `"
                                             data-firstname="` + row.FirstName + `"
                                             data-lastname="` + row.LastName + `"
@@ -216,6 +271,7 @@
         }
 
         function clearForm() {
+            $('#image').attr('src', '#');
             $('#teacherid').val('');
             $('#firstname').val('');
             $('#lastname').val('');
@@ -354,6 +410,18 @@
                 }
             });
         });
+
+        function getImageByAccountId(accountid) {
+            $.ajax({
+                url: '<?php echo base_url('queries/getImageByAccountId.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'accountid' , value : accountid }],
+                success: function(result) {
+                    $('#image').attr('src', result.image);
+                }
+            });
+        }
     });
 </script>
 
