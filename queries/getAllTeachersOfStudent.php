@@ -21,6 +21,7 @@ $query = $conn->prepare(
     INNER JOIN subject ON subject.SubjectId = section_subject_schedule.SubjectId
     INNER JOIN schedule ON schedule.ScheduleId = section_subject_schedule.ScheduleId
     INNER JOIN teacher ON teacher.TeacherId = section_subject_schedule.TeacherId
+    INNER JOIN teacher_account ON teacher_account.TeacherId = teacher.TeacherId
     INNER JOIN evaluation ON evaluation.TeacherId = section_subject_schedule.TeacherId AND evaluation.StudentId = :StudentId
     WHERE student_sss.StudentId = :StudentId'
 );

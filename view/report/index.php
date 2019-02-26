@@ -11,6 +11,13 @@
         margin: 1rem;
         width: 250px;
     }
+    
+    .teacher-image {
+        width: 150px;
+        height: auto;
+        min-height: 150px;
+        border: 1px solid;
+    }
 </style>
 
 <div class="container-fluid">
@@ -42,6 +49,7 @@
                         html += `<div 
                                     class="teacher-box"
                                 >
+                                    <img src="#" id="teacher-image-` + row.AccountId + `" class="teacher-image">
                                     <h6>` + row.FirstName + ` ` + row.MiddleName + ` ` + row.LastName + `</h6>
                                     <a 
                                         class="btn btn-primary btn-sm"
@@ -51,6 +59,22 @@
                     });
 
                     $('#teachers-wrapper').html(html);
+
+                    teacherData.forEach(function(row) {
+                        getImageByAccountId(row.AccountId);
+                    });
+                }
+            });
+        }
+
+        function getImageByAccountId(accountId) {
+            $.ajax({
+                url: '<?php echo base_url('queries/getImageByAccountId.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'accountid' , value : accountId }],
+                success: function(result) {
+                    $('#teacher-image-' + accountId).attr('src', result.image);
                 }
             });
         }

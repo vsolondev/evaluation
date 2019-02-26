@@ -17,6 +17,13 @@
         width: 100%;
         height: 300px;
     }
+
+    .teacher-image {
+        width: 150px;
+        height: auto;
+        min-height: 150px;
+        border: 1px solid;
+    }
 </style>
 
 <div class="container-fluid">
@@ -52,6 +59,7 @@
                                     data-evaluationid="` + row.EvaluationId + `"
                                     data-teacherid="` + row.TeacherId + `"
                                 >
+                                    <img src="#" id="teacher-image-` + row.AccountId + `" class="teacher-image">
                                     <h6 class="mb-3">` + row.FirstName + ` ` + row.MiddleName + ` ` + row.LastName + `</h6>
                                     <p class="mb-0">` + row.ScheduleDay + `</p>
                                     <p class="mb-0">` + row.ScheduleTimeFrom + ` - ` + row.ScheduleTimeTo + `</p>
@@ -67,6 +75,11 @@
                     });
 
                     $('#teachers-evaluation-form').html(html);
+
+                    teachersData.forEach(function(row) {
+                        // At the same time get teacher's image
+                        getImageByAccountId(row.AccountId);
+                    });
                 }
             });
         }
@@ -108,6 +121,18 @@
                     if (success) {
                         alert('Success!');
                     }
+                }
+            });
+        }
+
+        function getImageByAccountId(accountId) {
+            $.ajax({
+                url: '<?php echo base_url('queries/getImageByAccountId.php'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: [{ name : 'accountid' , value : accountId }],
+                success: function(result) {
+                    $('#teacher-image-' + accountId).attr('src', result.image);
                 }
             });
         }
